@@ -18,7 +18,7 @@ on:
 
 # 🔧 Environment variables
 env:
-  NODE_VERSION: '18'
+  DEPLOY_URL: 'https://yamicueto.github.io/academy.ia/'
 
 # 📋 Jobs Definition
 jobs:
@@ -68,19 +68,6 @@ jobs:
     steps:
     - name: 📂 Checkout Repository
       uses: actions/checkout@v4
-      
-    - name: 🟢 Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
-        
-    - name: 📦 Install Dependencies
-      run: |
-        echo "📦 Installing build dependencies..."
-        npm init -y
-        npm install --save-dev http-server concurrently
-        echo "✅ Dependencies installed!"
         
     - name: 🔧 Build Process
       run: |
@@ -185,7 +172,7 @@ jobs:
         sleep 30
         
         # Check if site is accessible
-        SITE_URL="https://yamicueto.github.io/academy.ia/"
+        SITE_URL="${{ env.DEPLOY_URL }}"
         echo "🌐 Checking site accessibility: $SITE_URL"
         
         HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "$SITE_URL" || echo "000")
@@ -204,7 +191,7 @@ jobs:
         echo "📈 DEPLOYMENT SUMMARY"
         echo "===================="
         echo "🎯 Project: Academia de Idiomas - Control de Asistencias"
-        echo "🌐 URL: https://yamicueto.github.io/academy.ia/"
+        echo "🌐 URL: ${{ env.DEPLOY_URL }}"
         echo "📅 Deployment Date: $(date)"
         echo "🔧 Workflow: ${{ github.workflow }}"
         echo "📝 Commit: ${{ github.sha }}"

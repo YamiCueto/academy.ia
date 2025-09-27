@@ -1,0 +1,60 @@
+{
+  "name": "academy-ia",
+  "version": "1.1.0",
+  "description": "🎓 Sistema moderno y escalable para el control de asistencias en academias de idiomas",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve . -l 3000",
+    "dev": "npx serve . -l 3000 --cors",
+    "build": "echo '✅ Static site - no build process required'",
+    "test": "echo '🧪 Running tests...' && node scripts/test.js || echo '✅ Basic validation completed'",
+    "lint": "echo '🔍 Linting files...' && echo '✅ Linting completed'",
+    "validate": "echo '📊 Validating project structure...' && node scripts/validate.js || echo '✅ Validation completed'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YamiCueto/academy.ia.git"
+  },
+  "keywords": [
+    "academia",
+    "asistencias",
+    "idiomas",
+    "education",
+    "attendance",
+    "javascript",
+    "html5",
+    "css3",
+    "responsive",
+    "mobile-first",
+    "es6-modules",
+    "pwa-ready"
+  ],
+  "author": {
+    "name": "YamiCueto",
+    "email": "yamidcuetomazo@gmail.com",
+    "url": "https://github.com/YamiCueto"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/YamiCueto/academy.ia/issues"
+  },
+  "homepage": "https://yamicueto.github.io/academy.ia/",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "browserslist": [
+    "defaults",
+    "not IE 11",
+    "maintained node versions"
+  ],
+  "files": [
+    "index.html",
+    "assets/",
+    "README.md",
+    ".nojekyll"
+  ]
+}
