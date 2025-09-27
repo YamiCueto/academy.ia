@@ -18,7 +18,7 @@ jobs:
     
     steps:
     - name: 📂 Checkout PR
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         # Checkout the PR branch
         ref: ${{ github.event.pull_request.head.sha }}
@@ -185,7 +185,7 @@ jobs:
     
     steps:
     - name: 📂 Checkout PR
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         fetch-depth: 0
         
