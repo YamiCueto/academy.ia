@@ -422,7 +422,7 @@ php -S localhost:8000
 ### **YamiCueto**
 
 - 🐙 GitHub: [@YamiCueto](https://github.com/YamiCueto)
-- 💼 LinkedIn: [Yamid Cueto](https://linkedin.com/in/yamidcueto)
+- 💼 LinkedIn: [Yamid Cueto](https://www.linkedin.com/in/yamid-cueto-mazo/)
 - 📧 Email: yamid.cueto@example.com
 - 🌐 Portfolio: [yamicueto.dev](https://yamicueto.dev)
 
