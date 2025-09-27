@@ -55,11 +55,13 @@
 - Historial completo por estudiante
 - Filtrado por fechas y cursos
 
-### 📊 **Reportes Avanzados**
+### � **Diseño Mobile Optimizado**
 
-- Estadísticas de asistencia por curso
-- Exportación de datos
-- Análisis de tendencias
+- Interface responsive con 4 breakpoints específicos
+- Sidebar collapsible para dispositivos móviles
+- Modales fullscreen en mobile portrait
+- Touch targets optimizados (44px/48px mínimo)
+- Navegación táctil mejorada
 
 ---
 
@@ -174,24 +176,41 @@ academy-ia/
 
 ### 📊 **Métricas del Proyecto**
 
-```
+```text
 📊 LÍNEAS DE CÓDIGO:
 ├── 📄 HTML: ~400 líneas
-├── 🎨 CSS: ~1,400 líneas (4 archivos)
-├── ⚡ JavaScript: ~2,600 líneas (10 archivos)
-└── 📖 Documentación: ~500 líneas
+├── 🎨 CSS: ~1,800 líneas (4 archivos + responsive)
+├── ⚡ JavaScript: ~3,000 líneas (10 archivos + eventos)
+└── 📖 Documentación: ~650 líneas
 
 🎯 COBERTURA FUNCIONAL:
 ├── ✅ Dashboard: 100% implementado
-├── ✅ Estudiantes: 100% implementado  
-├── 🔄 Asistencias: 80% implementado
-└── 📊 Reportes: 60% implementado (expandible)
+├── ✅ Estudiantes: 100% implementado + CRUD completo
+├── ✅ Asistencias: 90% implementado + eventos modal
+├── 📊 Reportes: 70% implementado (expandible)
+└── 📱 Mobile UI: 100% implementado
 
-📱 COMPATIBILIDAD:
-├── ✅ Desktop: Chrome, Firefox, Safari, Edge
-├── ✅ Mobile: iOS Safari, Chrome Mobile
-├── ✅ Tablet: iPad, Android tablets
-└── ✅ Accesibilidad: WCAG 2.1 AA
+📱 RESPONSIVE DESIGN:
+├── 🖥️ Desktop (1024px+): Layout completo
+├── 📱 Tablet (768px-1024px): Sidebar collapsible
+├── 🔄 Mobile Landscape (640px-768px): UI optimizada
+├── 📲 Mobile Portrait (480px-640px): Modal fullscreen
+└── 🤏 Small Mobile (<480px): Interface compacta
+
+🎯 ACCESIBILIDAD & UX:
+├── ✅ WCAG 2.1 AA compliance
+├── ✅ Touch targets 44px/48px mínimo
+├── ✅ Keyboard navigation completa
+├── ✅ Focus indicators visibles
+├── ✅ Screen reader friendly
+└── ✅ iOS zoom prevention (font-size: 16px)
+
+🔧 EVENTOS & INTERACCIÓN:
+├── ✅ Modal close (X, ESC, overlay click)
+├── ✅ Sidebar mobile con overlay
+├── ✅ Touch gestures optimizadas
+├── ✅ Form validation en tiempo real
+└── ✅ Responsive table behavior
 ```
 
 ## 🚀 Demo en Vivo
@@ -218,12 +237,13 @@ academy-ia/
 
 | Tecnología | Descripción |
 |------------|-------------|
-| ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white) | Estructura semántica y accesible |
-| ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white) | Estilos modulares con CSS Variables |
-| ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black) | ES6+ Modules, Classes y Async/Await |
+| ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white) | Estructura semántica y accesible + ARIA |
+| ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white) | Estilos modulares + CSS Variables + Responsive |
+| ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black) | ES6+ Modules + Event Handling + Touch Events |
 | ![LocalStorage](https://img.shields.io/badge/LocalStorage-FF6B6B?style=flat&logo=html5&logoColor=white) | Persistencia de datos del lado cliente |
-| ![Responsive](https://img.shields.io/badge/Responsive-4FC08D?style=flat&logo=css3&logoColor=white) | Mobile-first design |
-| ![Accessibility](https://img.shields.io/badge/A11y-000000?style=flat&logo=accessibility&logoColor=white) | WCAG 2.1 AA compliance |
+| ![Responsive](https://img.shields.io/badge/Mobile_First-4FC08D?style=flat&logo=css3&logoColor=white) | Design responsive con 4 breakpoints |
+| ![Accessibility](https://img.shields.io/badge/A11y_WCAG-000000?style=flat&logo=accessibility&logoColor=white) | WCAG 2.1 AA + Touch targets + Keyboard nav |
+| ![Touch](https://img.shields.io/badge/Touch_Optimized-9333EA?style=flat&logo=mobile&logoColor=white) | Interface táctil con targets 44px/48px |
 
 ---
 
@@ -372,6 +392,17 @@ php -S localhost:8000
 ---
 
 ## 📈 Changelog
+
+### v1.1.0 (2025-09-27) 📱
+
+- 📱 **Diseño Mobile Completo**: 4 breakpoints responsive optimizados
+- 🔧 **Arreglo Eventos Modales**: Cerrar con X, ESC y overlay click
+- 👆 **Touch Optimizations**: Targets de 44px/48px, focus mejorado
+- 📲 **UX Mobile**: Sidebar collapsible, modal fullscreen portrait
+- ⌨️ **Accesibilidad**: Navegación por teclado, WCAG 2.1 AA
+- 🎨 **Interface**: Animaciones suaves, feedback visual mejorado
+- 📐 **Responsive Tables**: Columnas ocultas automáticas en mobile
+- 🚀 **Performance**: Optimizaciones para dispositivos táctiles
 
 ### v1.0.0 (2024-01-15) 🎉
 
