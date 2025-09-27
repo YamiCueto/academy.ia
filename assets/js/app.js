@@ -197,6 +197,14 @@ class AttendanceApp {
             targetSection.classList.add('active');
         }
 
+        // Llamar al método onSectionShow del controlador correspondiente
+        if (this.controllers.has(sectionName)) {
+            const controller = this.controllers.get(sectionName);
+            if (controller && typeof controller.onSectionShow === 'function') {
+                controller.onSectionShow();
+            }
+        }
+
         // Actualizar navegación
         document.querySelectorAll('.menu-item').forEach(item => {
             item.classList.remove('active');

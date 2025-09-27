@@ -25,6 +25,14 @@ export class DashboardController {
     init() {
         this.loadData();
         this.setupEventListeners();
+        // Actualizar datos iniciales si ya estamos en la sección dashboard
+        setTimeout(() => {
+            if (document.getElementById('dashboard-section')?.classList.contains('active')) {
+                this.updateStats();
+                this.updateRecentActivity();
+                this.renderChart();
+            }
+        }, 100);
     }
 
     /**
@@ -33,6 +41,32 @@ export class DashboardController {
     setupEventListeners() {
         // Actualizar stats cuando se muestren datos
         document.addEventListener('data-updated', () => {
+            this.loadData();
+            this.updateStats();
+            this.updateRecentActivity();
+        });
+
+        // Actualizar cuando se modifiquen estudiantes
+        document.addEventListener('student-added', () => {
+            this.loadData();
+            this.updateStats();
+            this.updateRecentActivity();
+        });
+
+        document.addEventListener('student-updated', () => {
+            this.loadData();
+            this.updateStats();
+            this.updateRecentActivity();
+        });
+
+        document.addEventListener('student-deleted', () => {
+            this.loadData();
+            this.updateStats();
+            this.updateRecentActivity();
+        });
+
+        // Actualizar cuando se modifique asistencia
+        document.addEventListener('attendance-updated', () => {
             this.loadData();
             this.updateStats();
             this.updateRecentActivity();
