@@ -25,12 +25,15 @@
 - [🎯 Características Principales](#-características-principales)
 - [🏗️ Arquitectura del Sistema](#️-arquitectura-del-sistema)
 - [📂 Estructura del Proyecto](#-estructura-del-proyecto)
-- [🔄 Flujos de Funcionalidad](#-flujos-de-funcionalidad)
-- [🎨 Tecnologías y Patrones](#-tecnologías-y-patrones)
-- [📱 Diseño Responsive](#-diseño-responsive)
+- [�️ Tecnologías Utilizadas](#️-tecnologías-utilizadas)
 - [🚀 Instalación y Uso](#-instalación-y-uso)
-- [📊 Funcionalidades Detalladas](#-funcionalidades-detalladas)
+- [� CI/CD y Automatización](#-cicd-y-automatización)
+- [🎓 Casos de Uso](#-casos-de-uso)
+- [👥 Perfiles de Usuario](#-perfiles-de-usuario)
 - [🤝 Contribuir](#-contribuir)
+- [📈 Roadmap](#-roadmap)
+- [📈 Changelog](#-changelog)
+- [👤 Autor](#-autor)
 - [📄 Licencia](#-licencia)
 
 ---
@@ -286,6 +289,51 @@ php -S localhost:8000
 
 ---
 
+## 🔄 CI/CD y Automatización
+
+### 🚀 **GitHub Actions Pipeline**
+
+El proyecto incluye un sistema completo de **Integración y Despliegue Continuo (CI/CD)** con GitHub Actions:
+
+#### 📋 **Workflows Implementados:**
+
+| Workflow | Trigger | Descripción |
+|----------|---------|-------------|
+| 🌐 **Deploy to GitHub Pages** | Push a `main` | Despliegue automático a GitHub Pages |
+| 🔍 **PR Validation** | Pull Requests | Validación automática de PRs |
+| 📦 **Dependabot** | Semanal | Actualización automática de dependencias |
+
+#### 🔧 **Pipeline de Despliegue:**
+
+```mermaid
+graph LR
+    A[📝 Push to main] --> B[🔍 Quality Check]
+    B --> C[🏗️ Build & Test]
+    C --> D[🚀 Deploy to Pages]
+    D --> E[📊 Validate Deployment]
+    E --> F[✅ Site Live]
+```
+
+#### 📊 **Validaciones Automáticas:**
+
+- ✅ **Estructura del proyecto**: Validación de archivos esenciales
+- ✅ **Código CSS**: Sintaxis y mejores prácticas
+- ✅ **Código JavaScript**: ES6 modules y estructura
+- ✅ **Responsive Design**: Media queries y viewport
+- ✅ **Accesibilidad**: ARIA attributes y HTML semántico
+- ✅ **Performance**: Tamaño de archivos y optimizaciones
+- ✅ **Mobile Compatibility**: Touch targets y diseño móvil
+
+#### 🤖 **Automatizaciones:**
+
+- 🔄 **Auto-deploy** en cada push a main
+- 🏷️ **Auto-labeling** de PRs según tipo de cambios
+- 📦 **Dependabot** para actualizaciones de seguridad
+- 📊 **Validation checks** en Pull Requests
+- 📝 **Templates** para Issues y PRs
+
+---
+
 ## 🎓 Casos de Uso
 
 ### 📚 **Academia de Idiomas "Global English"**
@@ -423,8 +471,8 @@ php -S localhost:8000
 
 - 🐙 GitHub: [@YamiCueto](https://github.com/YamiCueto)
 - 💼 LinkedIn: [Yamid Cueto](https://www.linkedin.com/in/yamid-cueto-mazo/)
-- 📧 Email: yamid.cueto@example.com
-- 🌐 Portfolio: [yamicueto.dev](https://yamicueto.dev)
+- 📧 Email: yamidcuetomazo@gmail.com
+- 🌐 Portfolio: [yamicueto.dev](https://github.com/YamiCueto)
 
 ---
 

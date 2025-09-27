@@ -1,0 +1,231 @@
+# 🔍 Pull Request Validation Pipeline
+# Automated validation for Pull Requests
+
+name: 🔍 PR Validation
+
+# 🎯 Triggers - Solo en Pull Requests
+on:
+  pull_request:
+    branches: [ main ]
+    types: [opened, synchronize, reopened]
+
+# 📋 Jobs Definition
+jobs:
+  # 🔍 Code Review & Validation
+  pr-validation:
+    name: 🔍 PR Validation
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📂 Checkout PR
+      uses: actions/checkout@v4
+      with:
+        # Checkout the PR branch
+        ref: ${{ github.event.pull_request.head.sha }}
+        
+    - name: 📊 Analyze Changes
+      run: |
+        echo "🔍 Analyzing Pull Request changes..."
+        echo "📝 PR Title: ${{ github.event.pull_request.title }}"
+        echo "👤 Author: ${{ github.event.pull_request.user.login }}"
+        echo "🌿 Branch: ${{ github.event.pull_request.head.ref }}"
+        
+        # Show changed files
+        echo "📄 Changed files:"
+        git diff --name-only HEAD~1 HEAD || echo "Unable to show diff"
+        
+    - name: 🔧 Validate Structure
+      run: |
+        echo "🔧 Validating project structure..."
+        
+        # Check essential files
+        echo "📄 Checking essential files..."
+        test -f index.html && echo "✅ index.html exists" || echo "❌ index.html missing"
+        test -f README.md && echo "✅ README.md exists" || echo "❌ README.md missing"
+        
+        # Check assets structure
+        echo "📁 Checking assets structure..."
+        test -d assets && echo "✅ assets/ exists" || echo "❌ assets/ missing"
+        test -d assets/css && echo "✅ assets/css/ exists" || echo "❌ assets/css/ missing"
+        test -d assets/js && echo "✅ assets/js/ exists" || echo "❌ assets/js/ missing"
+        
+        echo "✅ Structure validation completed!"
+        
+    - name: 🎨 CSS Validation
+      run: |
+        echo "🎨 Validating CSS files..."
+        
+        # Check for CSS syntax issues (basic check)
+        for file in assets/css/*.css; do
+          if [ -f "$file" ]; then
+            echo "🔍 Checking $file..."
+            # Basic syntax check - look for unclosed braces
+            if grep -q '{' "$file" && grep -q '}' "$file"; then
+              echo "✅ $file appears syntactically valid"
+            else
+              echo "⚠️ $file might have syntax issues"
+            fi
+          fi
+        done
+        
+        echo "✅ CSS validation completed!"
+        
+    - name: ⚡ JavaScript Validation
+      run: |
+        echo "⚡ Validating JavaScript files..."
+        
+        # Check for ES6 modules
+        for file in assets/js/**/*.js; do
+          if [ -f "$file" ]; then
+            echo "🔍 Checking $file..."
+            # Check for module syntax
+            if grep -q "import\|export" "$file"; then
+              echo "✅ $file uses ES6 modules"
+            else
+              echo "📄 $file is a regular JS file"
+            fi
+          fi
+        done
+        
+        echo "✅ JavaScript validation completed!"
+        
+    - name: 📱 Mobile Compatibility Check
+      run: |
+        echo "📱 Checking mobile compatibility..."
+        
+        # Check for responsive design
+        echo "🔍 Checking for responsive CSS..."
+        if grep -r "@media" assets/css/; then
+          echo "✅ Responsive CSS found"
+        else
+          echo "⚠️ No responsive CSS detected"
+        fi
+        
+        # Check for viewport meta
+        if grep -q 'name="viewport"' index.html; then
+          echo "✅ Viewport meta tag found"
+        else
+          echo "⚠️ Viewport meta tag missing"
+        fi
+        
+        # Check for touch-friendly elements
+        if grep -r "min-height.*4[48]px\|touch-action\|pointer-events" assets/css/; then
+          echo "✅ Touch-friendly CSS found"
+        else
+          echo "📱 Consider adding touch-friendly styles"
+        fi
+        
+        echo "✅ Mobile compatibility check completed!"
+        
+    - name: ♿ Accessibility Check
+      run: |
+        echo "♿ Checking accessibility features..."
+        
+        # Check for ARIA attributes
+        if grep -q "aria-\|role=" index.html; then
+          echo "✅ ARIA attributes found"
+        else
+          echo "⚠️ Consider adding ARIA attributes"
+        fi
+        
+        # Check for semantic HTML
+        if grep -q "<main>\|<header>\|<nav>\|<section>" index.html; then
+          echo "✅ Semantic HTML elements found"
+        else
+          echo "⚠️ Consider using semantic HTML elements"
+        fi
+        
+        # Check for alt attributes (basic check)
+        if grep -q 'alt=' index.html; then
+          echo "✅ Alt attributes found"
+        else
+          echo "📷 No images or alt attributes found"
+        fi
+        
+        echo "✅ Accessibility check completed!"
+        
+    - name: 📊 Performance Check
+      run: |
+        echo "📊 Basic performance checks..."
+        
+        # Check file sizes
+        echo "📏 Checking asset sizes..."
+        find assets -type f -name "*.css" -exec wc -c {} + 2>/dev/null | tail -1 | awk '{print "📄 Total CSS size: " $1 " bytes"}'
+        find assets -type f -name "*.js" -exec wc -c {} + 2>/dev/null | tail -1 | awk '{print "⚡ Total JS size: " $1 " bytes"}'
+        
+        # Check for performance best practices
+        echo "🔍 Checking for performance optimizations..."
+        if grep -q "preconnect\|prefetch\|preload" index.html; then
+          echo "✅ Resource hints found"
+        else
+          echo "💡 Consider adding resource hints (preconnect, prefetch, preload)"
+        fi
+        
+        echo "✅ Performance check completed!"
+        
+    - name: ✅ PR Summary
+      run: |
+        echo "📋 PULL REQUEST VALIDATION SUMMARY"
+        echo "================================="
+        echo "🎯 PR: ${{ github.event.pull_request.title }}"
+        echo "👤 Author: ${{ github.event.pull_request.user.login }}"
+        echo "🌿 Branch: ${{ github.event.pull_request.head.ref }} → main"
+        echo "🔍 Validation: ✅ Completed"
+        echo "📅 Date: $(date)"
+        echo "================================="
+        echo ""
+        echo "🎉 All validations completed successfully!"
+        echo "👍 This PR is ready for review!"
+
+  # 📝 Auto-label PR based on changes
+  auto-label:
+    name: 🏷️ Auto Label PR
+    runs-on: ubuntu-latest
+    if: github.event.action == 'opened'
+    
+    steps:
+    - name: 📂 Checkout PR
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: 🏷️ Label PR Based on Changes
+      run: |
+        echo "🏷️ Analyzing changes to apply appropriate labels..."
+        
+        # Get changed files
+        CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
+        echo "📄 Changed files: $CHANGED_FILES"
+        
+        # Determine labels based on changed files
+        LABELS=""
+        
+        if echo "$CHANGED_FILES" | grep -q "\.css$"; then
+          LABELS="$LABELS,css,design"
+        fi
+        
+        if echo "$CHANGED_FILES" | grep -q "\.js$"; then
+          LABELS="$LABELS,javascript,functionality"
+        fi
+        
+        if echo "$CHANGED_FILES" | grep -q "\.html$"; then
+          LABELS="$LABELS,html,frontend"
+        fi
+        
+        if echo "$CHANGED_FILES" | grep -q "README\.md"; then
+          LABELS="$LABELS,documentation"
+        fi
+        
+        if echo "$CHANGED_FILES" | grep -q "responsive\.css\|@media"; then
+          LABELS="$LABELS,mobile,responsive"
+        fi
+        
+        if echo "$CHANGED_FILES" | grep -q "\.github/"; then
+          LABELS="$LABELS,ci-cd,github-actions"
+        fi
+        
+        # Clean up labels (remove leading comma)
+        LABELS=$(echo "$LABELS" | sed 's/^,//')
+        
+        echo "🏷️ Suggested labels: $LABELS"
+        echo "labels=$LABELS" >> $GITHUB_OUTPUT

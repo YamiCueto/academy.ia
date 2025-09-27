@@ -1,0 +1,53 @@
+# 🔄 Dependabot Configuration
+# Automated dependency updates for Academia de Idiomas
+
+version: 2
+
+updates:
+  # 📦 NPM Dependencies (if any)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: "📦"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "npm"
+      - "automated"
+
+  # 🔧 GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/.github/workflows"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+      time: "10:00"
+    open-pull-requests-limit: 2
+    commit-message:
+      prefix: "🔧"
+      include: "scope"
+    labels:
+      - "github-actions"
+      - "ci-cd"
+      - "automated"
+
+  # 🐳 Docker (if Docker is added in the future)
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "11:00"
+    open-pull-requests-limit: 2
+    commit-message:
+      prefix: "🐳"
+      include: "scope"
+    labels:
+      - "docker"
+      - "infrastructure"
+      - "automated"
