@@ -74,7 +74,7 @@ export class ReportsController {
      * Renderiza el reporte diario
      */
     renderDailyReport(container) {
-        const today = DateUtils.getCurrentDateString();
+        const today = DateUtils.getCurrentDateForInput();
         const todayAttendance = this.attendance.filter(record => record.date === today);
         
         const stats = this.calculateDailyStats(todayAttendance);
@@ -581,7 +581,7 @@ export class ReportsController {
     exportReport() {
         const reportData = this.generateReportData();
         const csv = this.convertToCSV(reportData);
-        this.downloadCSV(csv, `reporte_${this.currentReportType}_${DateUtils.getCurrentDateString()}.csv`);
+        this.downloadCSV(csv, `reporte_${this.currentReportType}_${DateUtils.getCurrentDateForInput()}.csv`);
     }
 
     /**
@@ -603,7 +603,7 @@ export class ReportsController {
     }
 
     generateDailyReportData() {
-        const today = DateUtils.getCurrentDateString();
+        const today = DateUtils.getCurrentDateForInput();
         const todayAttendance = this.attendance.filter(record => record.date === today);
         
         return todayAttendance.map(record => {
