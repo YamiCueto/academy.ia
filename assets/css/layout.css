@@ -1,0 +1,213 @@
+/* ===================================
+   LAYOUT.CSS - Estructura Principal
+   =================================== */
+
+/* Layout Principal */
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    width: var(--sidebar-width);
+    background: var(--sidebar-bg);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    overflow-y: auto;
+    transition: var(--transition);
+}
+
+.sidebar-header {
+    padding: 2rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-header h2 {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.sidebar-header i {
+    font-size: 1.75rem;
+    background: linear-gradient(45deg, #fbbf24, #f59e0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 1.5rem 0;
+}
+
+.sidebar-menu li {
+    margin: 0;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: var(--transition);
+    border-left: 3px solid transparent;
+    font-weight: 500;
+}
+
+.menu-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-left-color: var(--warning-color);
+    transform: translateX(5px);
+}
+
+.menu-item.active {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border-left-color: var(--warning-color);
+    font-weight: 600;
+}
+
+.menu-item i {
+    font-size: 1.25rem;
+    width: 24px;
+    text-align: center;
+}
+
+/* ===== MAIN CONTENT ===== */
+.main-content {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    min-height: 100vh;
+    background: rgba(255, 255, 255, 0.95);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border-radius: var(--border-radius-lg) 0 0 var(--border-radius-lg);
+    position: relative;
+}
+
+/* ===== HEADER ===== */
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 2.5rem;
+    background: white;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius-lg) 0 0 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+#page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.current-date {
+    font-weight: 500;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* ===== CONTENT SECTIONS ===== */
+.section {
+    display: none;
+    padding: 2.5rem;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== GRIDS ===== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* ===== MODAL OVERLAY ===== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-overlay.active .modal {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.modal {
+    background: white;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--box-shadow-lg);
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: var(--transition);
+}
