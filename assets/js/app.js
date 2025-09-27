@@ -149,6 +149,9 @@ class AttendanceApp {
         
         // Configurar comunicación entre controladores
         this.setupControllerCommunication();
+        
+        // Referencias globales para uso en HTML
+        window.attendanceController = this.controllers.get('attendance');
     }
 
     /**
@@ -169,6 +172,11 @@ class AttendanceApp {
         });
 
         document.addEventListener('attendance-marked', () => {
+            this.controllers.get('dashboard').updateStats();
+            this.controllers.get('dashboard').updateRecentActivity();
+        });
+
+        document.addEventListener('attendance-updated', () => {
             this.controllers.get('dashboard').updateStats();
             this.controllers.get('dashboard').updateRecentActivity();
         });
