@@ -12,7 +12,7 @@
 </p>
 
 <div align="center">
-  <a href="https://yamicueto.github.io/academy-ia/">🌐 Ver Demo en Vivo</a> |
+  <a href="https://yamicueto.github.io/academy.ia/">🌐 Ver Demo en Vivo</a> |
   <a href="#-instalación-y-uso">📖 Instalación</a> |
   <a href="#-arquitectura-del-sistema">🏗️ Arquitectura</a> |
   <a href="#-contribuir">🤝 Contribuir</a>
@@ -196,7 +196,7 @@ academy-ia/
 
 ## 🚀 Demo en Vivo
 
-[Ver Demo](https://yamicueto.github.io/academy-ia) *(¡Próximamente!)*
+[Ver Demo](https://yamicueto.github.io/academy.ia) *(¡Ya Disponible!)*
 
 ## 📸 Screenshots
 
@@ -255,7 +255,7 @@ php -S localhost:8000
 
 ### 🌐 **Demo en Vivo**
 
-👉 **[Ver Demo en GitHub Pages](https://YamiCueto.github.io/academy-ia)**
+👉 **[Ver Demo en GitHub Pages](https://yamicueto.github.io/academy.ia/)**
 
 ### ⚡ **Uso Rápido**
 
