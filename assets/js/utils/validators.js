@@ -277,28 +277,29 @@ export const ValidationRules = {
      */
     student: {
         name: [
-            Validators.required,
+            (value) => Validators.required(value),
             (value) => Validators.minLength(value, VALIDATION_RULES.MIN_NAME_LENGTH),
             (value) => Validators.maxLength(value, VALIDATION_RULES.MAX_NAME_LENGTH)
         ],
         email: [
-            Validators.required,
-            Validators.email,
+            (value) => Validators.required(value),
+            (value) => Validators.email(value),
             (value) => Validators.maxLength(value, VALIDATION_RULES.MAX_EMAIL_LENGTH)
         ],
         phone: [
-            Validators.phone
+            (value) => Validators.required(value),
+            (value) => Validators.phone(value)
         ],
         course: [
-            Validators.required
+            (value) => Validators.required(value)
         ],
         level: [
-            Validators.required
+            (value) => Validators.required(value)
         ],
         enrollmentDate: [
-            Validators.required,
-            Validators.date,
-            Validators.pastDate
+            (value) => Validators.required(value),
+            (value) => Validators.date(value),
+            (value) => Validators.pastDate(value)
         ]
     },
 
@@ -307,15 +308,15 @@ export const ValidationRules = {
      */
     attendance: {
         studentId: [
-            Validators.required,
+            (value) => Validators.required(value),
             (value) => Validators.number(value)
         ],
         date: [
-            Validators.required,
-            Validators.date
+            (value) => Validators.required(value),
+            (value) => Validators.date(value)
         ],
         status: [
-            Validators.required
+            (value) => Validators.required(value)
         ]
     }
 };
