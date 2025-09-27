@@ -58,6 +58,7 @@ class AttendanceApp {
         // Toggle menu mobile
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
         
         if (menuToggle && sidebar) {
             menuToggle.addEventListener('click', () => {
@@ -68,22 +69,29 @@ class AttendanceApp {
                 const icon = menuToggle.querySelector('i');
                 if (sidebar.classList.contains('open')) {
                     icon.className = 'fas fa-times';
+                    document.body.style.overflow = 'hidden'; // Prevenir scroll
                 } else {
                     icon.className = 'fas fa-bars';
+                    document.body.style.overflow = '';
                 }
+            });
+        }
+
+        // Cerrar sidebar con overlay
+        if (sidebarOverlay) {
+            sidebarOverlay.addEventListener('click', () => {
+                this.closeSidebar();
             });
         }
 
         // Cerrar sidebar al hacer clic fuera (mobile)
         document.addEventListener('click', (e) => {
             if (window.innerWidth <= 768 && 
-                !sidebar.contains(e.target) && 
-                !menuToggle.contains(e.target) &&
-                sidebar.classList.contains('open')) {
+                !sidebar?.contains(e.target) && 
+                !menuToggle?.contains(e.target) &&
+                sidebar?.classList.contains('open')) {
                 
-                sidebar.classList.remove('open');
-                menuToggle.classList.remove('open');
-                menuToggle.querySelector('i').className = 'fas fa-bars';
+                this.closeSidebar();
             }
         });
 
@@ -221,10 +229,41 @@ class AttendanceApp {
         // Actualizar sección actual
         this.currentSection = sectionName;
 
-        // Inicializar controlador de la sección
-        if (this.controllers.has(sectionName)) {
-            this.controllers.get(sectionName).onSectionShow();
+        // Cerrar sidebar en mobile después de navegar
+        if (window.innerWidth <= 768) {
+            this.closeSidebar();
         }
+    }
+
+    /**
+     * Cierra el sidebar móvil
+     */
+    closeSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const menuToggle = document.getElementById('menu-toggle');
+        
+        if (sidebar && sidebar.classList.contains('open')) {
+            sidebar.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        
+        if (menuToggle && menuToggle.classList.contains('open')) {
+            menuToggle.classList.remove('open');
+            const icon = menuToggle.querySelector('i');
+            if (icon) {
+                icon.className = 'fas fa-bars';
+            }
+        }
+    }
+
+    /**
+     * Cierra todas las modales abiertas
+     */
+    closeAllModals() {
+        const modals = document.querySelectorAll('.modal-overlay.active');
+        modals.forEach(modal => {
+            modal.classList.remove('active');
+        });
     }
 
     /**

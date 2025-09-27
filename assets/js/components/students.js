@@ -76,6 +76,7 @@ export class StudentsController {
     setupModalButtons() {
         const closeBtn = document.getElementById('close-student-modal');
         const cancelBtn = document.getElementById('cancel-student');
+        const modalOverlay = document.getElementById('student-modal');
         
         if (closeBtn) {
             closeBtn.addEventListener('click', () => this.hideModal());
@@ -84,6 +85,22 @@ export class StudentsController {
         if (cancelBtn) {
             cancelBtn.addEventListener('click', () => this.hideModal());
         }
+        
+        // Cerrar modal al hacer clic en el overlay
+        if (modalOverlay) {
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    this.hideModal();
+                }
+            });
+        }
+        
+        // Cerrar modal con tecla Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modalOverlay && modalOverlay.classList.contains('active')) {
+                this.hideModal();
+            }
+        });
     }
 
     /**

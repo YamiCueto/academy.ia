@@ -33,6 +33,42 @@ export class AttendanceController {
         if (markBtn) {
             markBtn.addEventListener('click', () => this.showAttendanceModal());
         }
+        
+        // Setup modal buttons
+        this.setupModalButtons();
+    }
+    
+    /**
+     * Configura botones del modal
+     */
+    setupModalButtons() {
+        const closeBtn = document.getElementById('close-attendance-modal');
+        const cancelBtn = document.getElementById('cancel-attendance');
+        const modalOverlay = document.getElementById('attendance-modal');
+        
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => this.hideModal());
+        }
+        
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', () => this.hideModal());
+        }
+        
+        // Cerrar modal al hacer clic en el overlay
+        if (modalOverlay) {
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    this.hideModal();
+                }
+            });
+        }
+        
+        // Cerrar modal con tecla Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modalOverlay && modalOverlay.classList.contains('active')) {
+                this.hideModal();
+            }
+        });
     }
 
     onSectionShow() {
@@ -45,6 +81,22 @@ export class AttendanceController {
         const modal = document.getElementById('attendance-modal');
         if (modal) {
             modal.classList.add('active');
+        }
+    }
+    
+    /**
+     * Oculta el modal de asistencia
+     */
+    hideModal() {
+        const modal = document.getElementById('attendance-modal');
+        if (modal) {
+            modal.classList.remove('active');
+        }
+        
+        // Reset form
+        const form = document.getElementById('attendance-form');
+        if (form) {
+            form.reset();
         }
     }
 
