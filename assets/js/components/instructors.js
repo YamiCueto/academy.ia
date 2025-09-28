@@ -32,6 +32,20 @@ export class InstructorsController {
     loadData() {
         this.instructors = StorageManager.getInstructors();
         this.filteredInstructors = [...this.instructors];
+        
+        console.log('📋 Instructores cargados:', this.instructors.length);
+        
+        // Si no hay instructores, crear uno de ejemplo con especialidades
+        if (this.instructors.length === 0) {
+            console.log('⚠️ No hay instructores, creando ejemplo...');
+            this.createSampleInstructor();
+        } else {
+            // Verificar que el instructor tenga especialidades
+            this.instructors.forEach((instructor, index) => {
+                console.log(`👨‍🏫 Instructor ${index + 1}: ${instructor.firstName} ${instructor.lastName}`);
+                console.log(`🏷️ Especialidades:`, instructor.specialties);
+            });
+        }
     }
 
     /**
@@ -101,22 +115,19 @@ export class InstructorsController {
     }
 
     /**
-     * Crea un instructor de prueba para demostración
+     * Crea un instructor de ejemplo si no hay ninguno
      */
     createSampleInstructor() {
         const sampleInstructor = {
-            id: Date.now(),
+            id: "INS-001",
+            employeeId: "INS-001",
             firstName: "Juan David",
             lastName: "De Leon Rivas",
-            email: "dejeon@gmail.com",
+            email: "deleon@gmail.com",
             phone: "3008786798",
-            birthDate: "1985-03-15",
-            nationality: "Colombiana",
-            address: "Calle 123 #45-67, Bogotá",
-            employeeId: "INS-001",
+            status: "activo",
             hireDate: "2020-01-15",
             experience: 10,
-            status: "activo",
             bio: "Instructor experimentado en idiomas con certificaciones internacionales",
             specialties: [
                 {
@@ -127,11 +138,18 @@ export class InstructorsController {
                     teachingLevels: ["A1", "A2", "B1", "B2", "C1", "C2"]
                 },
                 {
-                    language: "Francés",
+                    language: "Francés", 
                     proficiencyLevel: "B2",
                     yearsExperience: 5,
                     certifications: "DELF",
                     teachingLevels: ["A1", "A2", "B1", "B2"]
+                },
+                {
+                    language: "Español",
+                    proficiencyLevel: "C2", 
+                    yearsExperience: 10,
+                    certifications: "Nativo",
+                    teachingLevels: ["A1", "A2", "B1", "B2", "C1", "C2"]
                 }
             ],
             certifications: "TESOL Certificate, CELTA, DELF B2",
@@ -143,6 +161,8 @@ export class InstructorsController {
         this.instructors.push(sampleInstructor);
         StorageManager.saveInstructors(this.instructors);
         this.filteredInstructors = [...this.instructors];
+        
+        console.log('✅ Instructor de ejemplo creado con especialidades:', sampleInstructor.specialties);
     }
 
     /**
@@ -807,13 +827,17 @@ export class InstructorsController {
                     .join('');
 
                 // Renderizar especialidades
-                const specialtiesHTML = instructor.specialties && instructor.specialties.length > 0 
-                    ? instructor.specialties.map(spec => `
-                        <span class="badge-specialty">
-                            ${spec.language} (${spec.proficiencyLevel})
-                        </span>
-                    `).join('')
-                    : '<span class="text-muted">Sin especialidades</span>';
+                const specialties = instructor.specialties || [];
+                console.log(`👨‍🏫 ${instructor.firstName} tiene ${specialties.length} especialidades:`, specialties);
+                
+                const specialtiesHTML = specialties.length > 0 
+                    ? specialties.map(spec => {
+                        const language = spec.language || 'Idioma';
+                        const level = spec.proficiencyLevel || 'A1';
+                        console.log(`🏷️ Generando badge: ${language} (${level})`);
+                        return `<span class="badge-specialty">${language} (${level})</span>`;
+                    }).join('')
+                    : '<span class="text-muted" style="font-style: italic; color: #a0aec0; font-size: 0.85rem;">Sin especialidades</span>';
 
                 html += `
                     <tr>

@@ -120,17 +120,18 @@
 }
 
 .badge-specialty {
-    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-    color: white;
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%) !important;
+    color: white !important;
     padding: 4px 10px;
     border-radius: 16px;
     font-size: 0.75rem;
     font-weight: 600;
     white-space: nowrap;
-    display: inline-flex;
+    display: inline-flex !important;
     align-items: center;
     box-shadow: 0 2px 4px rgba(72, 187, 120, 0.2);
     transition: transform 0.2s;
+    margin: 2px;
 }
 
 .badge-specialty:hover {
