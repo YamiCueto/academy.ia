@@ -44,10 +44,53 @@ export class ChartManager {
                 },
                 credits: {
                     enabled: false
+                },
+                // Configuración de accesibilidad mejorada
+                accessibility: {
+                    enabled: true,
+                    description: 'Gráfico interactivo del sistema Academy IA',
+                    keyboardNavigation: {
+                        enabled: true
+                    },
+                    announceNewData: {
+                        enabled: true,
+                        minAnnounceInterval: 15000,
+                        announcementFormatter: function (allSeries, newSeries, newPoint) {
+                            if (newPoint) {
+                                return 'Nuevo punto agregado: ' + newPoint.category + ', valor: ' + newPoint.y;
+                            }
+                            return 'Datos del gráfico actualizados';
+                        }
+                    },
+                    landmarkVerbosity: 'one',
+                    linkedDescription: '*Los gráficos son navegables usando el teclado. Use Tab para navegar entre elementos y las flechas para explorar los datos.*'
+                },
+                // Configuración de idioma para accesibilidad
+                lang: {
+                    accessibility: {
+                        defaultChartTitle: 'Gráfico Academy IA',
+                        chartContainerLabel: 'Gráfico interactivo. {title}. Presiona Enter para ver los datos.',
+                        svgContainerLabel: 'Gráfico interactivo',
+                        drillUpButton: 'Volver al gráfico principal',
+                        credits: 'Gráfico generado por Academy IA usando Highcharts',
+                        thousandsSep: ',',
+                        axis: {
+                            xAxisDescriptionSingular: 'El gráfico tiene 1 eje X mostrando {names}.',
+                            xAxisDescriptionPlural: 'El gráfico tiene {numAxes} ejes X mostrando {names}.',
+                            yAxisDescriptionSingular: 'El gráfico tiene 1 eje Y mostrando {names}.',
+                            yAxisDescriptionPlural: 'El gráfico tiene {numAxes} ejes Y mostrando {names}.'
+                        },
+                        series: {
+                            summary: {
+                                'default': '{name}, serie {ix} de {numSeries} con {numPoints} punto(s).',
+                                defaultCombination: '{name}, serie {ix} de {numSeries} con {numPoints} punto(s).'
+                            }
+                        }
+                    }
                 }
             });
             
-            console.log('✅ Highcharts initialized with custom defaults');
+            console.log('✅ Highcharts initialized with accessibility and custom defaults');
         } else {
             console.warn('⚠️ Highcharts not loaded');
         }
