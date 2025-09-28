@@ -320,26 +320,17 @@ export class DashboardController {
                     color: '#1f2937'
                 }
             },
-            subtitle: {
-                text: 'Seguimiento de asistencias, ausencias y tardanzas de los últimos 7 días'
-            },
             xAxis: {
                 categories: data.labels,
                 title: {
                     text: 'Días de la Semana'
-                },
-                accessibility: {
-                    description: 'Días de la semana de domingo a sábado'
                 }
             },
             yAxis: {
                 title: {
                     text: 'Número de Estudiantes'
                 },
-                min: 0,
-                accessibility: {
-                    description: 'Número de estudiantes por categoría de asistencia'
-                }
+                min: 0
             },
             series: [{
                 name: 'Presente',
@@ -347,12 +338,6 @@ export class DashboardController {
                 color: '#10b981',
                 marker: {
                     symbol: 'circle'
-                },
-                accessibility: {
-                    description: 'Línea que muestra el número de estudiantes presentes cada día. Color verde.',
-                    pointDescriptionFormatter: function(point) {
-                        return point.category + ': ' + point.y + ' estudiantes presentes.';
-                    }
                 }
             }, {
                 name: 'Ausente',
@@ -360,12 +345,6 @@ export class DashboardController {
                 color: '#ef4444',
                 marker: {
                     symbol: 'square'
-                },
-                accessibility: {
-                    description: 'Línea que muestra el número de estudiantes ausentes cada día. Color rojo.',
-                    pointDescriptionFormatter: function(point) {
-                        return point.category + ': ' + point.y + ' estudiantes ausentes.';
-                    }
                 }
             }, {
                 name: 'Tardanza',
@@ -373,12 +352,6 @@ export class DashboardController {
                 color: '#f59e0b',
                 marker: {
                     symbol: 'triangle'
-                },
-                accessibility: {
-                    description: 'Línea que muestra el número de estudiantes con tardanza cada día. Color amarillo.',
-                    pointDescriptionFormatter: function(point) {
-                        return point.category + ': ' + point.y + ' estudiantes con tardanza.';
-                    }
                 }
             }],
             tooltip: {
@@ -407,14 +380,6 @@ export class DashboardController {
                                 radius: 6
                             }
                         }
-                    }
-                }
-            },
-            accessibility: {
-                description: 'Gráfico de líneas que muestra las estadísticas de asistencia de los últimos 7 días, incluyendo estudiantes presentes, ausentes y con tardanza. Use las teclas de flecha para navegar entre los puntos de datos.',
-                keyboardNavigation: {
-                    seriesNavigation: {
-                        mode: 'serialize'
                     }
                 }
             },
