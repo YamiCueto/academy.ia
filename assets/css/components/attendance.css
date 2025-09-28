@@ -60,6 +60,22 @@
     border: 1px solid #e2e8f0;
 }
 
+.attendance-controls .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+    gap: 16px; /* Agregar separación entre controles */
+    align-items: center;
+}
+
+.attendance-controls .col-md-6 {
+    position: relative;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 16px; /* Separación vertical para móviles */
+}
+
 .date-input {
     background: white;
     border: 2px solid #e2e8f0;
@@ -72,6 +88,23 @@
 }
 
 .date-input:focus {
+    outline: none;
+    border-color: #9f7aea;
+    box-shadow: 0 0 0 3px rgba(159, 122, 234, 0.1);
+}
+
+.filter-select {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    width: 100%;
+}
+
+.filter-select:focus {
     outline: none;
     border-color: #9f7aea;
     box-shadow: 0 0 0 3px rgba(159, 122, 234, 0.1);
@@ -238,6 +271,21 @@
         padding: 16px;
     }
     
+    .attendance-controls .row {
+        flex-direction: column;
+        gap: 12px; /* Separación en móviles */
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .attendance-controls .col-md-6 {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+        margin-bottom: 12px;
+    }
+    
     .btn-mark-attendance {
         width: 100%;
         justify-content: center;
@@ -255,5 +303,17 @@
     .btn-attendance {
         font-size: 0.75rem;
         padding: 4px 8px;
+    }
+}
+
+/* Mejorar espaciado de los controles en desktop */
+@media (min-width: 769px) {
+    .attendance-controls .row {
+        justify-content: flex-start;
+    }
+    
+    .attendance-controls .col-md-6 {
+        flex: 0 0 45%;
+        max-width: 45%;
     }
 }
