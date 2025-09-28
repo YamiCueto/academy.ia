@@ -1,7 +1,138 @@
-# 🎓 Academia de Idiomas - - [📂 Estructura del Proyecto](#-estructura-del-proyecto)
+# 🎓 Academia de Idiomas - Sistema de Control de Asistencias
+
+<div align="center">
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3">
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
+  <img src="https://img.shields.io/badge/Highcharts-003366?style=for-the-badge&logo=highcharts&logoColor=white" alt="Highcharts">
+  <img src="https://img.shields.io/badge/SweetAlert2-FF6B6B?style=for-the-badge&logo=javascript&logoColor=white" alt="SweetAlert2">
+  <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge" alt="Status">
+</div>
+
+<p align="center">
+  <strong>🚀 Sistema moderno y escalable para el control integral de academias de idiomas</strong>
+</p>
+
+<div align="center">
+  <a href="https://yamicueto.github.io/academy.ia/">🌐 Ver Demo en Vivo</a> |
+  <a href="#-instalación-y-uso">📖 Instalación</a> |
+  <a href="#-arquitectura-del-sistema">🏗️ Arquitectura</a> |
+  <a href="#-contribuir">🤝 Contribuir</a>
+</div>
+
+---
+
+## 📋 Tabla de Contenidos
+
+- [🎯 Características Principales](#-características-principales)
+- [🆕 Nuevas Características 2025](#-nuevas-características-2025)
+- [🏗️ Arquitectura del Sistema](#️-arquitectura-del-sistema)
+- [📂 Estructura del Proyecto](#-estructura-del-proyecto)
 - [🛠️ Tecnologías Utilizadas](#️-tecnologías-utilizadas)
 - [📊 Gráficos y Visualizaciones](#-gráficos-y-visualizaciones)
-- [🚀 Instalación y Uso](#-instalación-y-uso)tema de Control de Asistencias
+- [🚀 Instalación y Uso](#-instalación-y-uso)
+- [🎓 Casos de Uso](#-casos-de-uso)
+- [👥 Perfiles de Usuario](#-perfiles-de-usuario)
+- [🤝 Contribuir](#-contribuir)
+- [📈 Roadmap](#-roadmap)
+- [📈 Changelog](#-changelog)
+- [👤 Autor](#-autor)
+- [📄 Licencia](#-licencia)
+
+---
+
+## 🎯 Características Principales
+
+### 🎯 **Dashboard Interactivo**
+- 📊 **Reportes Profesionales**: Gráficos interactivos y accesibles con Highcharts v4.4.0
+- 📈 **Estadísticas en tiempo real** - Métricas actualizadas automáticamente
+- 🎨 **Diseño moderno** - Tarjetas informativas con gradientes y animaciones
+- ♿ **Totalmente accesible** - Navegación por teclado y compatible con screen readers
+- 📱 **Responsive design** - Adaptable a todos los dispositivos
+
+### 👨‍🎓 **Gestión Avanzada de Estudiantes**
+- ✅ **CRUD Completo**: Registro, edición, eliminación con validación robusta
+- 📋 **Información detallada**: Contacto, curso asignado, nivel de competencia
+- 🔍 **Filtros avanzados**: Búsqueda por nombre, email, curso y nivel
+- 📅 **Fechas de inscripción**: Control temporal de matrículas
+- ⚡ **Validación en tiempo real**: Email único, campos obligatorios
+
+### 📚 **Sistema de Cursos Profesional**
+- 🎯 **CRUD Completo de Cursos**: Gestión integral de ofertas académicas
+- 🌍 **Especialización por idiomas**: Inglés, Francés, Alemán, Portugués, etc.
+- 📊 **Niveles CEFR**: A1, A2, B1, B2, C1, C2 según estándares europeos
+- 👥 **Control de capacidad**: Límites de estudiantes por curso
+- 💰 **Gestión de precios**: Costos y modalidades de pago
+- 📅 **Horarios flexibles**: Días de la semana y horarios específicos
+- 🏷️ **Estados dinámicos**: Activo, completo, cancelado, suspendido
+- 🔄 **Modalidades**: Presencial, virtual, híbrido
+
+### 👨‍🏫 **Gestión Completa de Instructores**
+- ✨ **CRUD Avanzado**: Sistema completo de gestión de profesores
+- 👤 **Información personal**: Datos completos, contacto, nacionalidad
+- 💼 **Información profesional**: ID empleado, experiencia, estado laboral
+- 🌍 **Especialidades dinámicas**: Múltiples idiomas con niveles CEFR
+- 🏆 **Certificaciones**: TESOL, CELTA, DELE y otras certificaciones
+- 📊 **Competencias**: Niveles que puede enseñar por idioma
+- 🔍 **Filtros especializados**: Por idioma, estado, búsqueda textual
+- 📈 **Métricas**: Años de experiencia, cursos activos
+
+### ✅ **Control de Asistencias Inteligente**
+- ⚡ **Marcado rápido**: Interface optimizada para uso diario
+- 📊 **Historial completo**: Seguimiento por estudiante y curso
+- 🔍 **Filtrado avanzado**: Por fechas, cursos y estados
+- 📱 **Mobile optimizado**: Uso en tablets y móviles
+
+### 🔔 **Sistema de Notificaciones Avanzado**
+- 🎨 **SweetAlert2 v11**: Notificaciones modernas y accesibles
+- ✅ **Confirmaciones inteligentes**: Diálogos de confirmación personalizados
+- 🎯 **Toasts informativos**: Mensajes no intrusivos para feedback
+- 🚨 **Alertas contextuales**: Diferentes tipos según la acción (success, warning, error)
+
+---
+
+## 🆕 Nuevas Características 2025
+
+### 🎉 **Últimas Implementaciones**
+
+#### 🔔 **Sistema de Notificaciones SweetAlert2**
+- **Implementado**: Septiembre 2025
+- **Características**:
+  - Notificaciones modernas con animaciones CSS
+  - Confirmaciones de eliminación personalizadas
+  - Toasts para feedback instantáneo
+  - Estilos personalizados integrados con el diseño
+  - Soporte completo para temas light/dark
+
+#### 📚 **CRUD Completo de Cursos**
+- **Implementado**: Septiembre 2025
+- **Características**:
+  - 11 campos especializados para cursos
+  - Validación avanzada de horarios y capacidad
+  - Estados dinámicos con badges coloridos
+  - Filtros en tiempo real por idioma, nivel y modalidad
+  - Modal responsive con formulario multi-sección
+
+#### 👨‍🏫 **Sistema de Instructores con Especialidades**
+- **Implementado**: Septiembre 2025
+- **Características**:
+  - Modal avanzado con 5 secciones organizadas
+  - Sistema dinámico de especialidades por idiomas
+  - Niveles CEFR con checkboxes para niveles de enseñanza
+  - Validación única de emails e IDs de empleado
+  - Certificaciones específicas por instructor
+  - Estados laborales (activo, vacaciones, licencia)
+
+### 💾 **Mejoras en Almacenamiento**
+- **StorageManager refactorizado**: Métodos dedicados por entidad
+- **Persistencia mejorada**: Backup automático de cambios
+- **Estructura optimizada**: Constantes centralizadas en STORAGE_KEYS
+
+### 🎨 **Mejoras de UI/UX**
+- **CSS Modular**: Archivo dedicado para cada componente principal
+- **Animaciones**: Transiciones suaves en formularios y modales
+- **Responsive avanzado**: Optimización específica para tablets
+- **Accesibilidad**: ARIA labels y navegación por teclado mejorada
 
 <div align="center">
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
@@ -76,19 +207,21 @@
 
 ## 🏗️ Arquitectura del Sistema
 
-### 📐 **Patrón Arquitectónico: MVC Modular**
+### 📐 **Patrón Arquitectónico: MVC Modular Avanzado**
 
 ```mermaid
 graph TB
     subgraph "🎨 VIEW LAYER"
         HTML[📄 index.html<br/>Estructura semántica]
-        CSS[🎨 CSS Modular<br/>main.css + layout.css + components.css + responsive.css]
+        CSS[🎨 CSS Modular<br/>main.css + layout.css + components.css + instructors.css + responsive.css]
     end
     
     subgraph "🎮 CONTROLLER LAYER"
         APP[⚡ app.js<br/>Application Controller]
         DASH[📊 dashboard.js<br/>Dashboard Controller]
         STUD[👥 students.js<br/>Students Controller]
+        COURS[📚 courses.js<br/>Courses Controller]
+        INSTR[👨‍🏫 instructors.js<br/>Instructors Controller]
         ATTEN[✅ attendance.js<br/>Attendance Controller]
         REP[📈 reports.js<br/>Reports Controller]
     end
@@ -101,33 +234,52 @@ graph TB
     subgraph "🛠️ UTILITIES"
         DATE[📅 date-utils.js<br/>Date Helpers]
         VALID[✔️ validators.js<br/>Form Validation]
+        CHARTS[📊 charts.js<br/>Highcharts Helpers]
+    end
+    
+    subgraph "🔔 NOTIFICATIONS"
+        SWEET[🍭 SweetAlert2<br/>Modern Notifications]
+        TOAST[🍞 Toast System<br/>Instant Feedback]
     end
     
     HTML --> APP
     CSS --> HTML
     APP --> DASH
     APP --> STUD
+    APP --> COURS
+    APP --> INSTR
     APP --> ATTEN
     APP --> REP
     DASH --> STORAGE
     STUD --> STORAGE
+    COURS --> STORAGE
+    INSTR --> STORAGE
     ATTEN --> STORAGE
     REP --> STORAGE
     STUD --> VALID
+    COURS --> VALID
+    INSTR --> VALID
     ATTEN --> VALID
     DASH --> DATE
     ATTEN --> DATE
     REP --> DATE
+    REP --> CHARTS
+    DASH --> CHARTS
+    COURS --> SWEET
+    INSTR --> SWEET
+    STUD --> SWEET
+    ATTEN --> TOAST
     STORAGE --> CONST
 ```
 
-### 🔄 **Flujo de Datos**
+### 🔄 **Flujo de Datos Mejorado**
 
 ```mermaid
 sequenceDiagram
     participant U as 👤 Usuario
     participant V as 🎨 Vista (HTML/CSS)
     participant C as 🎮 Controlador
+    participant N as 🔔 Notificaciones
     participant M as 🗄️ Modelo (LocalStorage)
     participant H as 🛠️ Helpers/Utils
     
@@ -135,10 +287,17 @@ sequenceDiagram
     V->>C: Evento capturado
     C->>H: Validación/Formateo
     H-->>C: Datos procesados
-    C->>M: Operación CRUD
-    M-->>C: Resultado
+    alt Operación exitosa
+        C->>M: Operación CRUD
+        M-->>C: Resultado positivo
+        C->>N: Mostrar éxito
+        N-->>U: Toast/Alert success
+    else Error en operación
+        C->>N: Mostrar error
+        N-->>U: Alert de error
+    end
     C->>V: Actualización DOM
-    V-->>U: Feedback visual
+    V-->>U: Feedback visual actualizado
 ```
 
 ---
@@ -156,7 +315,11 @@ academy-ia/
 │   │   ├── 📄 main.css              # 🔧 Variables CSS + Reset global + Utilidades
 │   │   ├── 📄 layout.css            # 📐 Layout principal + Sidebar + Grid system
 │   │   ├── 📄 components.css        # 🧩 Componentes UI (botones, cards, forms, tables)
-│   │   └── 📄 responsive.css        # 📱 Media queries + Mobile optimization
+│   │   ├── 📄 responsive.css        # 📱 Media queries + Mobile optimization
+│   │   ├── 📄 sweetalert2-custom.css # 🔔 Estilos personalizados para SweetAlert2
+│   │   ├── � sweetalert.css        # 🍭 Configuraciones adicionales de alertas
+│   │   └── �📁 components/           # 🧩 CSS específico por componente
+│   │       └── 📄 instructors.css   # 👨‍🏫 Estilos dedicados para instructores
 │   │
 │   ├── 📁 js/                       # ⚡ JavaScript ES6 modular
 │   │   │
@@ -165,16 +328,19 @@ academy-ia/
 │   │   ├── 📁 components/           # 🎮 Controladores MVC por sección
 │   │   │   ├── 📄 dashboard.js      # 📊 Lógica del dashboard + Estadísticas + Gráficos
 │   │   │   ├── 📄 students.js       # 👥 CRUD estudiantes + Validación + Filtros
+│   │   │   ├── 📄 courses.js        # 📚 CRUD cursos + Especialidades + Niveles CEFR
+│   │   │   ├── 📄 instructors.js    # 👨‍🏫 CRUD instructores + Especialidades dinámicas
 │   │   │   ├── 📄 attendance.js     # ✅ Control asistencias + Marcado + Historial
 │   │   │   └── 📄 reports.js        # 📈 Sistema reportes + Exportación + Analytics
 │   │   │
 │   │   ├── 📁 utils/                # 🛠️ Utilidades reutilizables
-│   │   │   ├── 📄 storage.js        # 💾 LocalStorage manager + Backup/Restore
+│   │   │   ├── 📄 storage.js        # 💾 LocalStorage manager + CRUD por entidad
 │   │   │   ├── 📄 date-utils.js     # 📅 Formateo fechas + Cálculos temporales
-│   │   │   └── 📄 validators.js     # ✔️ Validaciones + Sanitización + Reglas
+│   │   │   ├── 📄 validators.js     # ✔️ Validaciones + Sanitización + Reglas
+│   │   │   └── 📄 charts.js         # 📊 Helpers para Highcharts + Configuraciones
 │   │   │
 │   │   └── 📁 config/               # ⚙️ Configuración centralizada
-│   │       └── 📄 constants.js      # 📋 Constantes + Cursos + Estados + Mensajes
+│   │       └── 📄 constants.js      # 📋 Constantes + Cursos + Estados + Storage Keys
 │   │
 │   └── 📁 images/                   # 🖼️ Assets visuales (preparado para futuro)
 │
@@ -183,12 +349,25 @@ academy-ia/
 └── 📖 README.md                     # 📚 Documentación completa del proyecto
 ```
 
-### 📊 **Métricas del Proyecto**
+### 📊 **Métricas del Proyecto Actualizadas**
 
 ```text
-📊 LÍNEAS DE CÓDIGO:
-├── 📄 HTML: ~400 líneas
-├── 🎨 CSS: ~1,800 líneas (4 archivos + responsive)
+📊 LÍNEAS DE CÓDIGO (Actualizado Septiembre 2025):
+├── 📄 HTML: ~900 líneas (+500 líneas con nuevos modales)
+├── 🎨 CSS: ~2,800 líneas (+1,000 líneas de componentes especializados)
+├── ⚡ JavaScript: ~4,500 líneas (+1,500 líneas de nuevos controladores)
+└── 📖 Documentación: ~800 líneas (+150 líneas actualizadas)
+
+🎯 COBERTURA FUNCIONAL:
+├── ✅ Dashboard: 100% implementado
+├── ✅ Estudiantes: 100% implementado + CRUD completo
+├── ✅ Cursos: 100% implementado + Especialidades avanzadas
+├── ✅ Instructores: 100% implementado + Sistema de especialidades
+├── ✅ Asistencias: 90% implementado + eventos modal
+├── ✅ Notificaciones: 100% implementado + SweetAlert2
+├── 📊 Reportes: 70% implementado (expandible)
+└── 📱 Mobile UI: 100% implementado
+```
 ├── ⚡ JavaScript: ~3,000 líneas (10 archivos + eventos)
 └── 📖 Documentación: ~650 líneas
 
@@ -491,6 +670,53 @@ graph LR
 ---
 
 ## 📈 Changelog
+
+### v2.0.0 (2025-09-27) 🚀 **MAJOR UPDATE**
+
+#### 🔔 **Sistema de Notificaciones SweetAlert2**
+- ✅ **SweetAlert2 v11**: Notificaciones modernas y accesibles
+- 🎨 **Estilos personalizados**: Integración completa con diseño
+- ✅ **Confirmaciones inteligentes**: Diálogos contextuales
+- 🍞 **Sistema de Toasts**: Feedback no intrusivo
+- 🎯 **Tipos específicos**: Success, warning, error, info
+
+#### 📚 **CRUD Completo de Cursos**
+- ✨ **Gestión integral**: 11 campos especializados
+- 🌍 **Especialización por idiomas**: 7 idiomas soportados
+- 📊 **Niveles CEFR**: A1-C2 según estándares europeos
+- 💰 **Control financiero**: Precios y modalidades de pago
+- 📅 **Gestión temporal**: Horarios y fechas flexibles
+- 🎯 **Estados dinámicos**: Activo, completo, cancelado, suspendido
+- 🔍 **Filtros avanzados**: Por idioma, nivel, modalidad en tiempo real
+
+#### 👨‍🏫 **Sistema Avanzado de Instructores**
+- 🎯 **CRUD completo**: Gestión profesional de instructores
+- 📋 **Modal multi-sección**: 5 categorías organizadas
+- 🌍 **Especialidades dinámicas**: Múltiples idiomas con niveles CEFR
+- 🏆 **Certificaciones**: TESOL, CELTA, DELE y más
+- ⚡ **Validación única**: Emails e IDs de empleado únicos
+- 📊 **Estados laborales**: Activo, vacaciones, licencia, inactivo
+- 🎨 **CSS modular**: Archivo dedicado con 400+ líneas
+- 🔍 **Filtros especializados**: Por idioma, estado, búsqueda textual
+
+#### 💾 **Mejoras en Storage**
+- 🔧 **StorageManager refactorizado**: Métodos por entidad
+- 📦 **STORAGE_KEYS**: Constantes centralizadas
+- 💾 **Persistencia mejorada**: Backup automático de cambios
+- 🛡️ **Validación robusta**: Control de errores avanzado
+
+#### 🎨 **Mejoras de UI/UX**
+- 📂 **CSS Modular avanzado**: Archivos específicos por componente
+- 🎯 **Animaciones suaves**: Transiciones en formularios
+- 📱 **Responsive mejorado**: Optimización tablet/móvil
+- ♿ **Accesibilidad**: ARIA labels y navegación mejorada
+- 🎨 **Badges coloridos**: Estados visuales intuitivos
+
+#### 📊 **Arquitectura Mejorada**
+- 🏗️ **MVC Modular avanzado**: Separación clara de responsabilidades
+- ⚡ **ES6 Modules**: Importaciones optimizadas
+- 🔄 **Comunicación entre componentes**: Sistema de eventos custom
+- 📋 **Configuración centralizada**: Constants.js expandido
 
 ### v1.1.0 (2025-09-27) 📱
 
