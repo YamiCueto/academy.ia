@@ -93,7 +93,56 @@ export class InstructorsController {
      */
     onSectionLoad() {
         this.loadData();
+        // Si no hay instructores, crear uno de prueba
+        if (this.instructors.length === 0) {
+            this.createSampleInstructor();
+        }
         this.renderInstructorsTable();
+    }
+
+    /**
+     * Crea un instructor de prueba para demostración
+     */
+    createSampleInstructor() {
+        const sampleInstructor = {
+            id: Date.now(),
+            firstName: "Juan David",
+            lastName: "De Leon Rivas",
+            email: "dejeon@gmail.com",
+            phone: "3008786798",
+            birthDate: "1985-03-15",
+            nationality: "Colombiana",
+            address: "Calle 123 #45-67, Bogotá",
+            employeeId: "INS-001",
+            hireDate: "2020-01-15",
+            experience: 10,
+            status: "activo",
+            bio: "Instructor experimentado en idiomas con certificaciones internacionales",
+            specialties: [
+                {
+                    language: "Inglés",
+                    proficiencyLevel: "C2",
+                    yearsExperience: 8,
+                    certifications: "TESOL, CELTA",
+                    teachingLevels: ["A1", "A2", "B1", "B2", "C1", "C2"]
+                },
+                {
+                    language: "Francés",
+                    proficiencyLevel: "B2",
+                    yearsExperience: 5,
+                    certifications: "DELF",
+                    teachingLevels: ["A1", "A2", "B1", "B2"]
+                }
+            ],
+            certifications: "TESOL Certificate, CELTA, DELF B2",
+            activeCourses: 0,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+
+        this.instructors.push(sampleInstructor);
+        StorageManager.saveInstructors(this.instructors);
+        this.filteredInstructors = [...this.instructors];
     }
 
     /**
@@ -680,27 +729,30 @@ export class InstructorsController {
                 </td>
                 <td>
                     <div class="instructor-name">
-                        <strong>${instructor.firstName} ${instructor.lastName}</strong>
+                        <strong>${instructor.firstName || 'N/A'} ${instructor.lastName || 'N/A'}</strong>
                         ${instructor.employeeId ? `<br><small class="text-muted">ID: ${instructor.employeeId}</small>` : ''}
                     </div>
                 </td>
                 <td>
-                    <a href="mailto:${instructor.email}" class="email-link">${instructor.email}</a>
+                    <a href="mailto:${instructor.email || ''}" class="email-link">${instructor.email || 'Sin email'}</a>
                 </td>
                 <td>
                     ${instructor.phone ? `<a href="tel:${instructor.phone}">${instructor.phone}</a>` : '-'}
                 </td>
                 <td>
                     <div class="specialties-list">
-                        ${instructor.specialties.map(spec => `
-                            <span class="badge badge-specialty">
-                                ${spec.language} (${spec.proficiencyLevel})
-                            </span>
-                        `).join('')}
+                        ${instructor.specialties && instructor.specialties.length > 0 
+                            ? instructor.specialties.map(spec => `
+                                <span class="badge badge-specialty">
+                                    ${spec.language} (${spec.proficiencyLevel})
+                                </span>
+                            `).join('')
+                            : '<span class="text-muted">Sin especialidades</span>'
+                        }
                     </div>
                 </td>
                 <td>
-                    <span class="experience-badge">${instructor.experience} años</span>
+                    <span class="experience-badge">${instructor.experience || 0} años</span>
                 </td>
                 <td>
                     <span class="courses-count">${instructor.activeCourses || 0}</span>

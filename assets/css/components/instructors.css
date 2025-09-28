@@ -48,6 +48,14 @@
     flex-wrap: wrap;
     gap: 4px;
     max-width: 200px;
+    min-height: 24px; /* Altura mínima para mantener consistencia */
+    align-items: center;
+}
+
+.specialties-list .text-muted {
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
 }
 
 .badge-specialty {
