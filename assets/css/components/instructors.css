@@ -3,59 +3,287 @@
    =================================== */
 
 /* -------------------------
-   Tabla de Instructores
+   Tabla de Instructores Moderna
    ------------------------- */
+
+.table-responsive {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    background: white;
+}
+
+.data-table thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.data-table thead th {
+    padding: 16px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none;
+    white-space: nowrap;
+}
+
+.data-table tbody tr {
+    border-bottom: 1px solid #f1f5f9;
+    transition: all 0.2s ease;
+}
+
+.data-table tbody tr:hover {
+    background: #f8fafc;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.data-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.data-table tbody td {
+    padding: 16px 12px;
+    vertical-align: middle;
+    border: none;
+}
 
 .instructor-avatar {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    background: var(--gradient-primary);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
 }
 
 .instructor-name {
     font-weight: 600;
-    color: var(--text-primary);
+    color: #1a202c;
+    line-height: 1.3;
+}
+
+.instructor-name strong {
+    font-size: 0.95rem;
+    color: #2d3748;
 }
 
 .instructor-name small {
-    font-weight: 400;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.8rem;
+    color: #718096;
     display: block;
-    margin-top: 2px;
+    margin-top: 4px;
+    background: #edf2f7;
+    padding: 2px 8px;
+    border-radius: 12px;
+    display: inline-block;
 }
 
 .email-link {
-    color: var(--primary-color);
+    color: #4299e1;
     text-decoration: none;
     font-size: 0.9rem;
-    transition: color 0.2s;
+    font-weight: 500;
+    transition: all 0.2s;
+    padding: 4px 8px;
+    border-radius: 6px;
 }
 
 .email-link:hover {
-    color: var(--primary-dark);
-    text-decoration: underline;
+    color: #3182ce;
+    background: #ebf8ff;
+    text-decoration: none;
 }
 
 .specialties-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 4px;
+    gap: 6px;
     max-width: 200px;
-    min-height: 24px; /* Altura mínima para mantener consistencia */
+    min-height: 32px;
+    align-items: flex-start;
+}
+
+.badge-specialty {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    display: inline-flex;
     align-items: center;
+    box-shadow: 0 2px 4px rgba(72, 187, 120, 0.2);
+    transition: transform 0.2s;
+}
+
+.badge-specialty:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(72, 187, 120, 0.3);
+}
+
+.experience-badge {
+    background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(237, 137, 54, 0.2);
+}
+
+.courses-count {
+    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    box-shadow: 0 2px 4px rgba(66, 153, 225, 0.2);
+}
+
+.badge-status {
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    display: inline-flex;
+    align-items: center;
+}
+
+.badge-status.badge-activo {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    color: white;
+    box-shadow: 0 2px 4px rgba(72, 187, 120, 0.2);
+}
+
+.badge-status.badge-inactivo {
+    background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+    color: white;
+    box-shadow: 0 2px 4px rgba(245, 101, 101, 0.2);
+}
+
+.badge-status.badge-vacaciones {
+    background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+    color: white;
+    box-shadow: 0 2px 4px rgba(237, 137, 54, 0.2);
+}
+
+.badge-status.badge-licencia {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 2px 4px rgba(102, 126, 234, 0.2);
+}
+
+.btn-group {
+    display: flex;
+    gap: 6px;
+}
+
+.btn-group .btn {
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    font-size: 0.85rem;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-group .btn-outline {
+    background: #f7fafc;
+    color: #4299e1;
+    border: 1px solid #bee3f8;
+}
+
+.btn-group .btn-outline:hover {
+    background: #4299e1;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(66, 153, 225, 0.3);
+}
+
+.btn-group .btn-danger {
+    background: #f7fafc;
+    color: #f56565;
+    border: 1px solid #feb2b2;
+}
+
+.btn-group .btn-danger:hover {
+    background: #f56565;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(245, 101, 101, 0.3);
 }
 
 .specialties-list .text-muted {
     font-style: italic;
     font-size: 0.85rem;
-    color: var(--text-secondary);
+    color: #a0aec0;
+    background: #f7fafc;
+    padding: 4px 10px;
+    border-radius: 12px;
+    border: 1px dashed #cbd5e0;
+}
+
+/* Responsive mejoras */
+@media (max-width: 1200px) {
+    .specialties-list {
+        max-width: 150px;
+    }
+    
+    .badge-specialty {
+        font-size: 0.7rem;
+        padding: 3px 8px;
+    }
+}
+
+@media (max-width: 768px) {
+    .data-table {
+        font-size: 0.8rem;
+    }
+    
+    .data-table thead th,
+    .data-table tbody td {
+        padding: 12px 8px;
+    }
+    
+    .instructor-avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .btn-group .btn {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
 }
 
 .badge-specialty {
@@ -112,8 +340,237 @@
 }
 
 /* -------------------------
-   Modal de Instructor
+   Controles de Filtrado y Búsqueda
    ------------------------- */
+
+.instructors-controls {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    border: 1px solid #e2e8f0;
+}
+
+.instructors-search {
+    position: relative;
+}
+
+.instructors-search input {
+    width: 100%;
+    padding: 12px 16px 12px 48px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    background: #f8fafc;
+}
+
+.instructors-search input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    background: white;
+}
+
+.instructors-search::before {
+    content: "🔍";
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+    z-index: 2;
+}
+
+.filter-select {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* -------------------------
+   Header de la página
+   ------------------------- */
+
+.instructors-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.instructors-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.btn-add-instructor {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-add-instructor:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.btn-add-instructor:active {
+    transform: translateY(0);
+}
+
+/* -------------------------
+   Estados de la tabla
+   ------------------------- */
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+}
+
+.empty-state-icon {
+    font-size: 4rem;
+    margin-bottom: 16px;
+    opacity: 0.6;
+}
+
+.empty-state h3 {
+    color: #4a5568;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.empty-state p {
+    color: #718096;
+    font-size: 1rem;
+    margin-bottom: 24px;
+}
+
+/* -------------------------
+   Loading State
+   ------------------------- */
+
+.table-loading {
+    text-align: center;
+    padding: 40px;
+    color: #718096;
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border: 3px solid #e2e8f0;
+    border-top-color: #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 16px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive para controles */
+@media (max-width: 768px) {
+    .instructors-header {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+    
+    .instructors-controls {
+        padding: 16px;
+    }
+    
+    .instructors-controls .row {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .instructors-controls .row > div {
+        margin-bottom: 12px;
+        width: 100%;
+    }
+    
+    .instructors-controls .col-md-4 {
+        width: 100%;
+        max-width: 100%;
+        flex: 0 0 100%;
+    }
+    
+    .btn-add-instructor {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* Tabla responsive */
+    .data-table {
+        font-size: 0.8rem;
+        min-width: 800px; /* Forzar scroll horizontal en móviles */
+    }
+}
+
+/* Sistema de grid básico para compatibilidad */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.col-md-4 {
+    position: relative;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+}
+
+@media (max-width: 768px) {
+    .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
 
 .instructor-modal {
     width: 90vw;

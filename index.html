@@ -31,6 +31,8 @@
     <link rel="stylesheet" href="assets/css/layout.css">
     <link rel="stylesheet" href="assets/css/components.css">
     <link rel="stylesheet" href="assets/css/components/instructors.css">
+    <link rel="stylesheet" href="assets/css/components/students.css">
+    <link rel="stylesheet" href="assets/css/components/attendance.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
     <link rel="stylesheet" href="assets/css/sweetalert2-custom.css">
     <link rel="stylesheet" href="assets/css/sweetalert.css">
@@ -172,48 +174,8 @@
 
             <!-- Students Section -->
             <section id="students-section" class="section">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Gestión de Estudiantes</h3>
-                        <button class="btn btn-primary" id="add-student">
-                            <i class="fas fa-plus"></i> Agregar Estudiante
-                        </button>
-                    </div>
-                    <div class="card-content">
-                        <!-- Filtros -->
-                        <div class="filters-section mb-3">
-                            <div class="form-group">
-                                <input type="search" 
-                                       id="student-search" 
-                                       class="form-input" 
-                                       placeholder="Buscar estudiante...">
-                            </div>
-                            <div class="form-group">
-                                <select title="Filtrar por curso" id="course-filter" class="form-select">
-                                    <option value="">Todos los cursos</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <!-- Tabla de estudiantes -->
-                        <div class="table-container">
-                            <table class="table" id="students-table">
-                                <thead>
-                                    <tr>
-                                        <th>Nombre</th>
-                                        <th>Email</th>
-                                        <th>Curso</th>
-                                        <th>Nivel</th>
-                                        <th>Fecha Inscripción</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="students-tbody">
-                                    <!-- Se llenará dinámicamente -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <div id="students-container">
+                    <!-- El contenido se generará dinámicamente -->
                 </div>
             </section>
 
@@ -284,113 +246,15 @@
 
             <!-- Instructors Section -->
             <section id="instructors-section" class="section">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Gestión de Instructores</h3>
-                        <button class="btn btn-primary" id="add-instructor">
-                            <i class="fas fa-plus"></i> Agregar Instructor
-                        </button>
-                    </div>
-                    <div class="card-content">
-                        <!-- Filtros de instructores -->
-                        <div class="filters-section mb-3">
-                            <div class="form-group">
-                                <input type="search" 
-                                       id="instructor-search" 
-                                       class="form-input" 
-                                       placeholder="Buscar instructor..."
-                                       aria-label="Buscar instructor">
-                            </div>
-                            <div class="form-group">
-                                <select id="instructor-language-filter" class="form-select" aria-label="Filtrar por idioma">
-                                    <option value="">Todos los idiomas</option>
-                                    <option value="Inglés">Inglés</option>
-                                    <option value="Francés">Francés</option>
-                                    <option value="Alemán">Alemán</option>
-                                    <option value="Portugués">Portugués</option>
-                                    <option value="Italiano">Italiano</option>
-                                    <option value="Japonés">Japonés</option>
-                                    <option value="Chino">Chino</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <select id="instructor-status-filter" class="form-select" aria-label="Filtrar por estado">
-                                    <option value="">Todos los estados</option>
-                                    <option value="activo">Activo</option>
-                                    <option value="inactivo">Inactivo</option>
-                                    <option value="vacaciones">En Vacaciones</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Tabla de instructores -->
-                        <div class="table-responsive">
-                            <table class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>Foto</th>
-                                        <th>Nombre Completo</th>
-                                        <th>Email</th>
-                                        <th>Teléfono</th>
-                                        <th>Especialidades</th>
-                                        <th>Experiencia</th>
-                                        <th>Cursos Activos</th>
-                                        <th>Estado</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="instructors-tbody">
-                                    <!-- Se llenará dinámicamente -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <div id="instructors-container">
+                    <!-- El contenido se generará dinámicamente -->
                 </div>
             </section>
 
             <!-- Attendance Section -->
             <section id="attendance-section" class="section">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Control de Asistencias</h3>
-                        <button class="btn btn-primary" id="mark-attendance">
-                            <i class="fas fa-check"></i> Marcar Asistencia
-                        </button>
-                    </div>
-                    <div class="card-content">
-                        <!-- Filtros de asistencia -->
-                        <div class="filters-section mb-3">
-                            <div class="form-group">
-                                <input title="Filtrar por fecha" type="date" 
-                                       id="attendance-date" 
-                                       class="form-input">
-                            </div>
-                            <div class="form-group">
-                                <select title="Filtrar por curso" id="attendance-course-filter" class="form-select">
-                                    <option value="">Todos los cursos</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Tabla de asistencias -->
-                        <div class="table-container">
-                            <table class="table" id="attendance-table">
-                                <thead>
-                                    <tr>
-                                        <th>Estudiante</th>
-                                        <th>Curso</th>
-                                        <th>Fecha</th>
-                                        <th>Estado</th>
-                                        <th>Hora</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="attendance-tbody">
-                                    <!-- Se llenará dinámicamente -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <div id="attendance-container">
+                    <!-- El contenido se generará dinámicamente -->
                 </div>
             </section>
 

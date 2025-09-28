@@ -680,9 +680,9 @@ export class InstructorsController {
      * Filtra los instructores según los criterios seleccionados
      */
     filterInstructors() {
-        const searchTerm = document.getElementById('instructor-search')?.value.toLowerCase() || '';
-        const languageFilter = document.getElementById('instructor-language-filter')?.value || '';
-        const statusFilter = document.getElementById('instructor-status-filter')?.value || '';
+        const searchTerm = document.getElementById('searchInstructors')?.value.toLowerCase() || '';
+        const languageFilter = document.getElementById('filterSpecialty')?.value || '';
+        const statusFilter = document.getElementById('filterStatus')?.value || '';
 
         this.filteredInstructors = this.instructors.filter(instructor => {
             const matchesSearch = 
@@ -691,7 +691,9 @@ export class InstructorsController {
                 (instructor.employeeId && instructor.employeeId.toLowerCase().includes(searchTerm));
             
             const matchesLanguage = !languageFilter || 
-                instructor.specialties.some(specialty => specialty.language === languageFilter);
+                (instructor.specialties && instructor.specialties.some(specialty => 
+                    specialty.language && specialty.language.toLowerCase().includes(languageFilter.toLowerCase())
+                ));
             
             const matchesStatus = !statusFilter || instructor.status === statusFilter;
 
@@ -702,84 +704,186 @@ export class InstructorsController {
     }
 
     /**
-     * Renderiza la tabla de instructores
+     * Renderiza la tabla de instructores con la estructura completa
      */
     renderInstructorsTable() {
-        const tbody = document.getElementById('instructors-tbody');
-        if (!tbody) return;
+        const instructorsContainer = document.getElementById('instructors-container');
+        if (!instructorsContainer) return;
+
+        // Generar estructura completa
+        let html = `
+            <div class="instructors-header">
+                <h2 class="instructors-title">
+                    <i class="fas fa-users"></i> Gestión de Instructores
+                </h2>
+                <button class="btn-add-instructor" onclick="window.instructorsController.showModal()">
+                    <i class="fas fa-plus"></i> Agregar Instructor
+                </button>
+            </div>
+            
+            <div class="instructors-controls">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="instructors-search">
+                            <input 
+                                type="text" 
+                                id="searchInstructors" 
+                                placeholder="Buscar instructor..."
+                                oninput="window.instructorsController.filterInstructors()"
+                            >
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <select 
+                            id="filterSpecialty" 
+                            class="filter-select" 
+                            onchange="window.instructorsController.filterInstructors()"
+                        >
+                            <option value="">Todos los idiomas</option>
+                            <option value="inglés">Inglés</option>
+                            <option value="español">Español</option>
+                            <option value="francés">Francés</option>
+                            <option value="alemán">Alemán</option>
+                            <option value="italiano">Italiano</option>
+                            <option value="portugués">Portugués</option>
+                            <option value="chino">Chino</option>
+                            <option value="japonés">Japonés</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select 
+                            id="filterStatus" 
+                            class="filter-select" 
+                            onchange="window.instructorsController.filterInstructors()"
+                        >
+                            <option value="">Todos los estados</option>
+                            <option value="activo">Activo</option>
+                            <option value="inactivo">Inactivo</option>
+                            <option value="vacaciones">Vacaciones</option>
+                            <option value="licencia">Licencia</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        `;
 
         if (this.filteredInstructors.length === 0) {
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="9" class="text-center text-muted py-4">
-                        <i class="fas fa-chalkboard-teacher fa-2x mb-2"></i>
-                        <p>No hay instructores disponibles</p>
-                    </td>
-                </tr>
+            html += `
+                <div class="empty-state">
+                    <div class="empty-state-icon">👨‍🏫</div>
+                    <h3>No hay instructores registrados</h3>
+                    <p>Comienza agregando tu primer instructor al sistema</p>
+                    <button class="btn-add-instructor" onclick="window.instructorsController.showModal()">
+                        <i class="fas fa-plus"></i> Agregar Primer Instructor
+                    </button>
+                </div>
             `;
-            return;
+        } else {
+            html += `
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>Nombre Completo</th>
+                                <th>Email</th>
+                                <th>Teléfono</th>
+                                <th>Especialidades</th>
+                                <th>Experiencia</th>
+                                <th>Cursos Activos</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            this.filteredInstructors.forEach(instructor => {
+                // Generar iniciales para el avatar
+                const fullName = `${instructor.firstName || ''} ${instructor.lastName || ''}`.trim() || 'Usuario';
+                const initials = fullName.split(' ')
+                    .map(name => name.charAt(0).toUpperCase())
+                    .slice(0, 2)
+                    .join('');
+
+                // Renderizar especialidades
+                const specialtiesHTML = instructor.specialties && instructor.specialties.length > 0 
+                    ? instructor.specialties.map(spec => `
+                        <span class="badge-specialty">
+                            ${spec.language} (${spec.proficiencyLevel})
+                        </span>
+                    `).join('')
+                    : '<span class="text-muted">Sin especialidades</span>';
+
+                html += `
+                    <tr>
+                        <td>
+                            <div class="instructor-avatar">
+                                ${initials || '?'}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="instructor-name">
+                                <strong>${instructor.firstName || 'N/A'} ${instructor.lastName || ''}</strong>
+                                ${instructor.employeeId ? `<small>ID: ${instructor.employeeId}</small>` : ''}
+                            </div>
+                        </td>
+                        <td>
+                            <a href="mailto:${instructor.email || ''}" class="email-link">
+                                ${instructor.email || 'Sin email'}
+                            </a>
+                        </td>
+                        <td>
+                            ${instructor.phone || 'No especificado'}
+                        </td>
+                        <td>
+                            <div class="specialties-list">
+                                ${specialtiesHTML}
+                            </div>
+                        </td>
+                        <td>
+                            <span class="experience-badge">
+                                ${instructor.experience || 0} año${(instructor.experience || 0) !== 1 ? 's' : ''}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="courses-count">
+                                ${instructor.activeCourses || 0}
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge-status badge-${instructor.status || 'activo'}">
+                                ${this.getStatusText(instructor.status)}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-outline" 
+                                        onclick="window.instructorsController.showModal(${JSON.stringify(instructor).replace(/"/g, '&quot;')})"
+                                        title="Editar instructor"
+                                        aria-label="Editar instructor ${instructor.firstName} ${instructor.lastName}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-danger" 
+                                        onclick="window.instructorsController.deleteInstructor(${instructor.id})"
+                                        title="Eliminar instructor"
+                                        aria-label="Eliminar instructor ${instructor.firstName} ${instructor.lastName}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
         }
 
-        tbody.innerHTML = this.filteredInstructors.map(instructor => `
-            <tr>
-                <td>
-                    <div class="instructor-avatar">
-                        <i class="fas fa-user-circle fa-2x"></i>
-                    </div>
-                </td>
-                <td>
-                    <div class="instructor-name">
-                        <strong>${instructor.firstName || 'N/A'} ${instructor.lastName || 'N/A'}</strong>
-                        ${instructor.employeeId ? `<br><small class="text-muted">ID: ${instructor.employeeId}</small>` : ''}
-                    </div>
-                </td>
-                <td>
-                    <a href="mailto:${instructor.email || ''}" class="email-link">${instructor.email || 'Sin email'}</a>
-                </td>
-                <td>
-                    ${instructor.phone ? `<a href="tel:${instructor.phone}">${instructor.phone}</a>` : '-'}
-                </td>
-                <td>
-                    <div class="specialties-list">
-                        ${instructor.specialties && instructor.specialties.length > 0 
-                            ? instructor.specialties.map(spec => `
-                                <span class="badge badge-specialty">
-                                    ${spec.language} (${spec.proficiencyLevel})
-                                </span>
-                            `).join('')
-                            : '<span class="text-muted">Sin especialidades</span>'
-                        }
-                    </div>
-                </td>
-                <td>
-                    <span class="experience-badge">${instructor.experience || 0} años</span>
-                </td>
-                <td>
-                    <span class="courses-count">${instructor.activeCourses || 0}</span>
-                </td>
-                <td>
-                    <span class="badge badge-status badge-${instructor.status}">
-                        ${this.getStatusText(instructor.status)}
-                    </span>
-                </td>
-                <td>
-                    <div class="btn-group">
-                        <button class="btn btn-sm btn-outline" 
-                                onclick="window.instructorsController.showModal(${JSON.stringify(instructor).replace(/"/g, '&quot;')})"
-                                title="Editar instructor"
-                                aria-label="Editar instructor ${instructor.firstName} ${instructor.lastName}">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger" 
-                                onclick="window.instructorsController.deleteInstructor(${instructor.id})"
-                                title="Eliminar instructor"
-                                aria-label="Eliminar instructor ${instructor.firstName} ${instructor.lastName}">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        `).join('');
+        instructorsContainer.innerHTML = html;
     }
 
     /**

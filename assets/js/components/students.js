@@ -203,77 +203,200 @@ export class StudentsController {
     }
 
     /**
-     * Filtra estudiantes por texto de búsqueda
-     * @param {string} searchText - Texto de búsqueda
+     * Filtra estudiantes según múltiples criterios
      */
-    filterStudents(searchText) {
-        if (!searchText.trim()) {
-            this.filteredStudents = [...this.students];
-        } else {
-            const search = searchText.toLowerCase();
-            this.filteredStudents = this.students.filter(student => 
-                student.name.toLowerCase().includes(search) ||
-                student.email.toLowerCase().includes(search) ||
-                COURSES[student.course]?.toLowerCase().includes(search)
-            );
-        }
-        
+    filterStudents() {
+        const searchTerm = document.getElementById('searchStudents')?.value.toLowerCase() || '';
+        const courseFilter = document.getElementById('filterCourse')?.value || '';
+        const levelFilter = document.getElementById('filterLevel')?.value || '';
+
+        this.filteredStudents = this.students.filter(student => {
+            const matchesSearch = 
+                student.name.toLowerCase().includes(searchTerm) ||
+                student.email.toLowerCase().includes(searchTerm);
+            
+            const matchesCourse = !courseFilter || student.course === courseFilter;
+            
+            const matchesLevel = !levelFilter || student.level === levelFilter;
+
+            return matchesSearch && matchesCourse && matchesLevel;
+        });
+
         this.renderStudentsTable();
     }
 
     /**
-     * Filtra estudiantes por curso
-     * @param {string} courseKey - Clave del curso
-     */
-    filterByCourse(courseKey) {
-        if (!courseKey) {
-            this.filteredStudents = [...this.students];
-        } else {
-            this.filteredStudents = this.students.filter(student => 
-                student.course === courseKey
-            );
-        }
-        
-        this.renderStudentsTable();
-    }
-
-    /**
-     * Renderiza la tabla de estudiantes
+     * Renderiza la tabla de estudiantes con estructura moderna
      */
     renderStudentsTable() {
-        const tbody = document.getElementById('students-tbody');
-        if (!tbody) return;
+        const studentsContainer = document.getElementById('students-container');
+        if (!studentsContainer) return;
+
+        // Generar estructura completa
+        let html = `
+            <div class="students-header">
+                <h2 class="students-title">
+                    <i class="fas fa-user-graduate"></i> Gestión de Estudiantes
+                </h2>
+                <button class="btn-add-student" onclick="window.studentsController.showAddModal()">
+                    <i class="fas fa-plus"></i> Agregar Estudiante
+                </button>
+            </div>
+            
+            <div class="students-controls">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="students-search">
+                            <input 
+                                type="text" 
+                                id="searchStudents" 
+                                placeholder="Buscar estudiante..."
+                                oninput="window.studentsController.filterStudents()"
+                            >
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <select 
+                            id="filterCourse" 
+                            class="filter-select" 
+                            onchange="window.studentsController.filterStudents()"
+                        >
+                            <option value="">Todos los cursos</option>
+                            ${Object.entries(COURSES).map(([key, value]) => 
+                                `<option value="${key}">${value}</option>`
+                            ).join('')}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select 
+                            id="filterLevel" 
+                            class="filter-select" 
+                            onchange="window.studentsController.filterStudents()"
+                        >
+                            <option value="">Todos los niveles</option>
+                            ${COURSE_LEVELS.map(level => 
+                                `<option value="${level}">${level}</option>`
+                            ).join('')}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        `;
 
         if (this.filteredStudents.length === 0) {
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="6" class="text-center">No se encontraron estudiantes</td>
-                </tr>
+            html += `
+                <div class="empty-state">
+                    <div class="empty-state-icon">👨‍🎓</div>
+                    <h3>No hay estudiantes registrados</h3>
+                    <p>Comienza agregando tu primer estudiante al sistema</p>
+                    <button class="btn-add-student" onclick="window.studentsController.showAddModal()">
+                        <i class="fas fa-plus"></i> Agregar Primer Estudiante
+                    </button>
+                </div>
             `;
-            return;
+        } else {
+            html += `
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>Nombre Completo</th>
+                                <th>Email</th>
+                                <th>Curso</th>
+                                <th>Nivel</th>
+                                <th>Fecha Inscripción</th>
+                                <th>Asistencia</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            this.filteredStudents.forEach(student => {
+                // Generar iniciales para el avatar
+                const fullName = student.name || 'Estudiante';
+                const initials = fullName.split(' ')
+                    .map(name => name.charAt(0).toUpperCase())
+                    .slice(0, 2)
+                    .join('');
+
+                // Calcular porcentaje de asistencia (simulado por ahora)
+                const attendanceRate = student.attendanceRate || Math.floor(Math.random() * 30 + 70);
+                let attendanceClass = 'low';
+                if (attendanceRate >= 85) attendanceClass = 'high';
+                else if (attendanceRate >= 70) attendanceClass = 'medium';
+
+                html += `
+                    <tr data-student-id="${student.id}">
+                        <td>
+                            <div class="student-avatar">
+                                ${initials}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="student-name">
+                                <strong>${student.name}</strong>
+                                <small>ID: ${student.id}</small>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="mailto:${student.email}" class="email-link">
+                                ${student.email}
+                            </a>
+                        </td>
+                        <td>
+                            <span class="badge-course">
+                                ${COURSES[student.course] || student.course}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge-level">
+                                ${student.level}
+                            </span>
+                        </td>
+                        <td>
+                            ${DateUtils.formatDateShort(student.enrollmentDate)}
+                        </td>
+                        <td>
+                            <div class="attendance-rate">
+                                <span class="attendance-percentage ${attendanceClass}">
+                                    ${attendanceRate}%
+                                </span>
+                                <div class="attendance-bar">
+                                    <div class="attendance-progress ${attendanceClass}" 
+                                         style="width: ${attendanceRate}%"></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-outline" 
+                                        onclick="window.studentsController.editStudent(${student.id})"
+                                        title="Editar estudiante"
+                                        aria-label="Editar estudiante ${student.name}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-danger" 
+                                        onclick="window.studentsController.deleteStudent(${student.id})"
+                                        title="Eliminar estudiante"
+                                        aria-label="Eliminar estudiante ${student.name}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
         }
 
-        tbody.innerHTML = this.filteredStudents.map(student => `
-            <tr data-student-id="${student.id}">
-                <td>${student.name}</td>
-                <td>${student.email}</td>
-                <td>${COURSES[student.course] || student.course}</td>
-                <td><span class="badge badge-primary">${student.level}</span></td>
-                <td>${DateUtils.formatDateShort(student.enrollmentDate)}</td>
-                <td class="actions">
-                    <button class="btn btn-sm btn-outline" 
-                            onclick="app.controllers.get('students').editStudent(${student.id})"
-                            title="Editar estudiante">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="btn btn-sm btn-danger" 
-                            onclick="app.controllers.get('students').deleteStudent(${student.id})"
-                            title="Eliminar estudiante">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </td>
-            </tr>
-        `).join('');
+        studentsContainer.innerHTML = html;
     }
 
     /**
