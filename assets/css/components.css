@@ -913,3 +913,75 @@
         font-size: 0.8rem;
     }
 }
+
+/* ===== INSTRUCTOR SELECT STYLES ===== */
+.instructor-select {
+    position: relative;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236366f1'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'/%3E%3C/svg%3E");
+    background-position: 1rem center;
+    background-repeat: no-repeat;
+    background-size: 1.2rem;
+    padding-left: 3rem;
+}
+
+.instructor-select option {
+    padding: 0.75rem;
+    font-size: 0.95rem;
+}
+
+.instructor-select option:hover {
+    background: var(--primary-light);
+}
+
+.instructor-select.has-value {
+    background-color: var(--success-light);
+    border-color: var(--success-color);
+}
+
+.instructor-select:invalid {
+    border-color: var(--danger-color);
+    background-color: var(--danger-light);
+}
+
+/* Estilos para opciones de instructor */
+.instructor-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    font-size: 0.95rem;
+}
+
+.instructor-option .instructor-info {
+    flex: 1;
+}
+
+.instructor-option .instructor-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.instructor-option .instructor-specialties {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+}
+
+.instructor-option .instructor-status {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.5rem;
+    background: var(--success-light);
+    color: var(--success-dark);
+}
+
+/* Loading state */
+.instructor-select.loading {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 6V4m0 16v-2m6-6h2M4 12h2m13.657-5.657l1.414 1.414M4.929 4.929l1.414 1.414m0 11.314l1.414-1.414M4.929 19.071l1.414-1.414'/%3E%3C/svg%3E");
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}

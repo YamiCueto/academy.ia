@@ -98,6 +98,9 @@ export class CoursesController {
         const title = document.getElementById('course-modal-title');
         const saveButton = document.getElementById('save-course-text');
         
+        // Cargar instructores disponibles
+        this.loadInstructors();
+        
         if (course) {
             // Modo edición
             this.currentCourse = course;
@@ -138,7 +141,19 @@ export class CoursesController {
         document.getElementById('course-level').value = course.level || '';
         document.getElementById('course-duration').value = course.duration || '';
         document.getElementById('course-schedule').value = course.schedule || '';
-        document.getElementById('course-instructor').value = course.instructor || '';
+        
+        // Manejar el campo instructor (ahora es un select)
+        const instructorSelect = document.getElementById('course-instructor');
+        if (course.instructor) {
+            // Esperar a que se carguen los instructores antes de seleccionar
+            setTimeout(() => {
+                instructorSelect.value = course.instructor;
+                if (instructorSelect.value) {
+                    instructorSelect.classList.add('has-value');
+                }
+            }, 100);
+        }
+        
         document.getElementById('course-capacity').value = course.capacity || 20;
         document.getElementById('course-description').value = course.description || '';
         document.getElementById('course-start-date').value = course.startDate || '';
@@ -152,6 +167,12 @@ export class CoursesController {
         document.getElementById('course-form').reset();
         document.getElementById('course-capacity').value = 20;
         document.getElementById('course-status').value = 'planificado';
+        
+        // Limpiar estilos especiales del select de instructor
+        const instructorSelect = document.getElementById('course-instructor');
+        if (instructorSelect) {
+            instructorSelect.classList.remove('has-value');
+        }
     }
 
     /**
@@ -594,6 +615,79 @@ export class CoursesController {
             planned: this.courses.filter(c => c.status === 'planificado').length,
             finished: this.courses.filter(c => c.status === 'finalizado').length,
             cancelled: this.courses.filter(c => c.status === 'cancelado').length
+        };
+    }
+
+    /**
+     * Carga los instructores disponibles en el combo
+     */
+    loadInstructors() {
+        const instructorSelect = document.getElementById('course-instructor');
+        if (!instructorSelect) return;
+
+        // Agregar clase de loading
+        instructorSelect.classList.add('loading');
+        
+        // Obtener instructores desde StorageManager
+        const instructors = StorageManager.getInstructors();
+        
+        // Limpiar opciones existentes excepto la primera
+        instructorSelect.innerHTML = '<option value="">Seleccionar instructor</option>';
+        
+        // Filtrar solo instructores activos
+        const activeInstructors = instructors.filter(instructor => instructor.status === 'activo');
+        
+        if (activeInstructors.length === 0) {
+            instructorSelect.innerHTML += '<option value="" disabled>No hay instructores disponibles</option>';
+        } else {
+            activeInstructors.forEach(instructor => {
+                // Crear texto descriptivo del instructor
+                const specialties = instructor.specialties 
+                    ? instructor.specialties.map(s => `${s.language} (${s.proficiencyLevel})`).join(', ')
+                    : 'Sin especialidades';
+                
+                const optionText = `${instructor.firstName} ${instructor.lastName} - ${specialties}`;
+                const instructorId = `${instructor.firstName} ${instructor.lastName}`;
+                
+                const option = document.createElement('option');
+                option.value = instructorId;
+                option.textContent = optionText;
+                option.dataset.instructorId = instructor.id;
+                option.dataset.specialties = specialties;
+                
+                instructorSelect.appendChild(option);
+            });
+        }
+        
+        // Remover clase de loading
+        instructorSelect.classList.remove('loading');
+        
+        // Agregar event listener para cambios
+        instructorSelect.addEventListener('change', () => {
+            if (instructorSelect.value) {
+                instructorSelect.classList.add('has-value');
+            } else {
+                instructorSelect.classList.remove('has-value');
+            }
+        });
+    }
+
+    /**
+     * Obtiene el instructor seleccionado
+     * @returns {Object|null} - Datos del instructor seleccionado
+     */
+    getSelectedInstructor() {
+        const instructorSelect = document.getElementById('course-instructor');
+        const selectedOption = instructorSelect.options[instructorSelect.selectedIndex];
+        
+        if (!selectedOption || !selectedOption.dataset.instructorId) {
+            return null;
+        }
+        
+        return {
+            id: selectedOption.dataset.instructorId,
+            name: selectedOption.value,
+            specialties: selectedOption.dataset.specialties
         };
     }
 }
