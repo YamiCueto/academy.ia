@@ -135,6 +135,7 @@ export class AttendanceController {
 
         // Calcular estadísticas
         const today = DateUtils.formatDate(new Date());
+        const todayForInput = DateUtils.formatDateForInput(new Date());
         const todayAttendance = this.attendance.filter(record => record.date === today);
         const presentCount = todayAttendance.filter(r => r.status === 'present').length;
         const absentCount = todayAttendance.filter(r => r.status === 'absent').length;
@@ -178,7 +179,7 @@ export class AttendanceController {
                             type="date" 
                             id="filterDate" 
                             class="date-input"
-                            value="${today}"
+                            value="${todayForInput}"
                             onchange="window.attendanceController.filterByDate()"
                         >
                     </div>

@@ -19,6 +19,9 @@ export const COURSE_LEVELS = {
     'toefl-prep': ['TOEFL']
 };
 
+// Array con todos los niveles disponibles
+export const ALL_LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'TOEFL'];
+
 // Estados de asistencia
 export const ATTENDANCE_STATUS = {
     PRESENT: 'present',

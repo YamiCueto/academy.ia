@@ -5,7 +5,7 @@
 import { StorageManager } from '../utils/storage.js';
 import { DateUtils } from '../utils/date-utils.js';
 import { FormValidator, ValidationRules } from '../utils/validators.js';
-import { COURSES, COURSE_LEVELS, MESSAGES } from '../config/constants.js';
+import { COURSES, COURSE_LEVELS, ALL_LEVELS, MESSAGES } from '../config/constants.js';
 
 /**
  * Controlador para la gestión de estudiantes
@@ -274,7 +274,7 @@ export class StudentsController {
                             onchange="window.studentsController.filterStudents()"
                         >
                             <option value="">Todos los niveles</option>
-                            ${COURSE_LEVELS.map(level => 
+                            ${ALL_LEVELS.map(level => 
                                 `<option value="${level}">${level}</option>`
                             ).join('')}
                         </select>

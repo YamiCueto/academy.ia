@@ -159,6 +159,7 @@ class AttendanceApp {
         this.setupControllerCommunication();
         
         // Referencias globales para uso en HTML
+        window.studentsController = this.controllers.get('students');
         window.attendanceController = this.controllers.get('attendance');
         window.coursesController = this.controllers.get('courses');
         window.instructorsController = this.controllers.get('instructors');
