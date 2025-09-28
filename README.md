@@ -568,7 +568,7 @@ MIT License - Puedes usar, modificar y distribuir libremente
 
 ### 🎯 **¿Necesitas ayuda con tu proyecto?**
 
-[![Contact Me](https://img.shields.io/badge/💬_Contactar-4285F4?style=for-the-badge&logo=gmail&logoColor=white)](mailto:yamid.cueto@example.com)
+[![Contact Me](https://img.shields.io/badge/💬_Contactar-4285F4?style=for-the-badge&logo=gmail&logoColor=white)](mailto:yamidcuetomazo@gmail.com)
 
 </div>
 
