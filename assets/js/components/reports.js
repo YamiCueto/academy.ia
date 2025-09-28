@@ -5,6 +5,7 @@
 import { StorageManager } from '../utils/storage.js';
 import { DateUtils } from '../utils/date-utils.js';
 import { COURSES, ATTENDANCE_STATUS } from '../config/constants.js';
+import { ChartManager } from '../utils/charts.js';
 
 /**
  * Controlador para reportes y estadísticas
@@ -139,7 +140,7 @@ export class ReportsController {
                 </h4>
 
                 <div class="chart-container">
-                    <canvas id="weekly-chart" width="400" height="200"></canvas>
+                    <div id="weekly-chart" class="chart-container"></div>
                 </div>
 
                 <div class="weekly-summary">
@@ -194,6 +195,10 @@ export class ReportsController {
                     </div>
                 </div>
 
+                <div class="chart-container">
+                    <div id="monthly-trend-chart" class="chart-container"></div>
+                </div>
+
                 <div class="student-ranking">
                     <h5>Ranking de Asistencia por Estudiante</h5>
                     <table class="table">
@@ -213,6 +218,9 @@ export class ReportsController {
                 </div>
             </div>
         `;
+
+        // Renderizar gráfico mensual después de que el DOM esté listo
+        setTimeout(() => this.renderMonthlyTrendChart(monthData), 100);
     }
 
     /**
@@ -227,6 +235,10 @@ export class ReportsController {
                     <i class="fas fa-graduation-cap"></i>
                     Reporte por Curso
                 </h4>
+
+                <div class="chart-container">
+                    <div id="course-comparison-chart" class="chart-container"></div>
+                </div>
 
                 <div class="course-comparison">
                     ${Object.entries(courseData).map(([courseKey, data]) => `
@@ -254,6 +266,9 @@ export class ReportsController {
                 </div>
             </div>
         `;
+
+        // Renderizar gráfico de comparación de cursos después de que el DOM esté listo
+        setTimeout(() => this.renderCourseComparisonChart(courseData), 100);
     }
 
     /**
@@ -508,71 +523,459 @@ export class ReportsController {
     }
 
     /**
-     * Renderiza gráfico semanal
+     * Renderiza gráfico semanal con Highcharts
      */
     renderWeeklyChart(weekData) {
-        const canvas = document.getElementById('weekly-chart');
-        if (!canvas) return;
+        const container = document.getElementById('weekly-chart');
+        if (!container) return;
 
-        const ctx = canvas.getContext('2d');
         const data = weekData.dailyStats;
         
-        // Limpiar canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        // Configuración del gráfico
-        const padding = 40;
-        const chartWidth = canvas.width - (padding * 2);
-        const chartHeight = canvas.height - (padding * 2);
-        const barWidth = chartWidth / data.length - 10;
-        const maxValue = Math.max(...data.map(d => d.percentage), 100);
+        if (typeof Highcharts === 'undefined') {
+            console.warn('Highcharts no está disponible para el reporte semanal');
+            return;
+        }
 
-        // Dibujar ejes
-        ctx.strokeStyle = '#e5e7eb';
-        ctx.lineWidth = 1;
-        
-        // Eje Y
-        ctx.beginPath();
-        ctx.moveTo(padding, padding);
-        ctx.lineTo(padding, canvas.height - padding);
-        ctx.stroke();
-        
-        // Eje X
-        ctx.beginPath();
-        ctx.moveTo(padding, canvas.height - padding);
-        ctx.lineTo(canvas.width - padding, canvas.height - padding);
-        ctx.stroke();
+        // Preparar datos para Highcharts
+        const categories = data.map(day => day.dayName);
+        const percentages = data.map(day => day.percentage);
+        const presentData = data.map(day => day.present);
+        const totalData = data.map(day => day.total);
 
-        // Dibujar barras
-        data.forEach((day, index) => {
-            const barHeight = (day.percentage / maxValue) * chartHeight;
-            const x = padding + (index * (barWidth + 10));
-            const y = canvas.height - padding - barHeight;
-
-            // Barra
-            ctx.fillStyle = day.percentage >= 80 ? '#10b981' : 
-                           day.percentage >= 60 ? '#f59e0b' : '#ef4444';
-            ctx.fillRect(x, y, barWidth, barHeight);
-
-            // Etiqueta del día
-            ctx.fillStyle = '#374151';
-            ctx.font = '12px Arial';
-            ctx.textAlign = 'center';
-            ctx.fillText(day.dayName, x + barWidth / 2, canvas.height - padding + 20);
-
-            // Porcentaje
-            ctx.fillStyle = '#ffffff';
-            ctx.font = 'bold 10px Arial';
-            if (barHeight > 20) {
-                ctx.fillText(`${day.percentage}%`, x + barWidth / 2, y + 15);
+        // Configuración del gráfico de barras
+        const chartConfig = {
+            chart: {
+                type: 'column',
+                height: 300,
+                backgroundColor: 'transparent'
+            },
+            title: {
+                text: 'Asistencia Semanal por Día',
+                style: {
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    color: '#1f2937'
+                }
+            },
+            xAxis: {
+                categories: categories,
+                title: {
+                    text: 'Días de la Semana'
+                }
+            },
+            yAxis: [{
+                title: {
+                    text: 'Porcentaje de Asistencia (%)',
+                    style: {
+                        color: '#667eea'
+                    }
+                },
+                labels: {
+                    format: '{value}%',
+                    style: {
+                        color: '#667eea'
+                    }
+                },
+                max: 100,
+                min: 0
+            }, {
+                title: {
+                    text: 'Número de Estudiantes',
+                    style: {
+                        color: '#10b981'
+                    }
+                },
+                labels: {
+                    style: {
+                        color: '#10b981'
+                    }
+                },
+                opposite: true
+            }],
+            series: [{
+                name: 'Porcentaje de Asistencia',
+                type: 'column',
+                yAxis: 0,
+                data: percentages.map((percentage, index) => ({
+                    y: percentage,
+                    color: percentage >= 80 ? '#10b981' : 
+                           percentage >= 60 ? '#f59e0b' : '#ef4444'
+                })),
+                dataLabels: {
+                    enabled: true,
+                    format: '{y}%',
+                    style: {
+                        fontWeight: 'bold',
+                        color: 'white',
+                        textOutline: '1px contrast'
+                    }
+                },
+                tooltip: {
+                    pointFormat: '<span style="color:{point.color}">●</span> {series.name}: <b>{point.y}%</b><br/>'
+                }
+            }, {
+                name: 'Estudiantes Presentes',
+                type: 'line',
+                yAxis: 1,
+                data: presentData,
+                color: '#8b5cf6',
+                marker: {
+                    symbol: 'circle',
+                    radius: 4
+                },
+                tooltip: {
+                    pointFormat: '<span style="color:{series.color}">●</span> {series.name}: <b>{point.y}</b><br/>'
+                }
+            }],
+            tooltip: {
+                shared: true,
+                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                borderColor: '#e5e7eb',
+                borderRadius: 8,
+                shadow: true
+            },
+            legend: {
+                align: 'center',
+                verticalAlign: 'bottom',
+                borderWidth: 0
+            },
+            plotOptions: {
+                column: {
+                    borderRadius: 4,
+                    borderWidth: 0
+                },
+                line: {
+                    lineWidth: 3,
+                    states: {
+                        hover: {
+                            lineWidth: 4
+                        }
+                    }
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        yAxis: [{
+                            title: {
+                                text: 'Asistencia (%)'
+                            }
+                        }, {
+                            title: {
+                                text: 'Estudiantes'
+                            }
+                        }],
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
             }
-        });
+        };
 
-        // Título
-        ctx.fillStyle = '#111827';
-        ctx.font = 'bold 14px Arial';
-        ctx.textAlign = 'center';
-        ctx.fillText('Asistencia Semanal (%)', canvas.width / 2, 20);
+        // Crear el gráfico
+        Highcharts.chart(container, chartConfig);
+    }
+
+    /**
+     * Renderiza gráfico de tendencia mensual con Highcharts
+     */
+    renderMonthlyTrendChart(monthData) {
+        const container = document.getElementById('monthly-trend-chart');
+        if (!container) return;
+
+        if (typeof Highcharts === 'undefined') {
+            console.warn('Highcharts no está disponible para el reporte mensual');
+            return;
+        }
+
+        // Obtener datos de tendencia mensual (últimos 30 días)
+        const trendData = this.getMonthlyTrendData();
+
+        const chartConfig = {
+            chart: {
+                type: 'area',
+                height: 350,
+                backgroundColor: 'transparent'
+            },
+            title: {
+                text: 'Tendencia de Asistencia Mensual',
+                style: {
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    color: '#1f2937'
+                }
+            },
+            xAxis: {
+                categories: trendData.dates,
+                title: {
+                    text: 'Fecha'
+                },
+                labels: {
+                    rotation: -45
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Porcentaje de Asistencia (%)'
+                },
+                min: 0,
+                max: 100,
+                labels: {
+                    format: '{value}%'
+                }
+            },
+            series: [{
+                name: 'Asistencia (%)',
+                data: trendData.percentages,
+                fillColor: {
+                    linearGradient: {
+                        x1: 0,
+                        y1: 0,
+                        x2: 0,
+                        y2: 1
+                    },
+                    stops: [
+                        [0, 'rgba(102, 126, 234, 0.8)'],
+                        [1, 'rgba(102, 126, 234, 0.1)']
+                    ]
+                },
+                color: '#667eea',
+                lineWidth: 3,
+                marker: {
+                    radius: 4,
+                    fillColor: '#667eea',
+                    states: {
+                        hover: {
+                            radius: 6
+                        }
+                    }
+                }
+            }],
+            tooltip: {
+                shared: true,
+                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                borderColor: '#e5e7eb',
+                borderRadius: 8,
+                shadow: true,
+                pointFormat: '<span style="color:{series.color}">●</span> {series.name}: <b>{point.y}%</b><br/>'
+            },
+            plotOptions: {
+                area: {
+                    marker: {
+                        enabled: false,
+                        symbol: 'circle',
+                        radius: 2,
+                        states: {
+                            hover: {
+                                enabled: true
+                            }
+                        }
+                    }
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        xAxis: {
+                            labels: {
+                                rotation: -90
+                            }
+                        }
+                    }
+                }]
+            }
+        };
+
+        Highcharts.chart(container, chartConfig);
+    }
+
+    /**
+     * Renderiza gráfico de comparación de cursos con Highcharts
+     */
+    renderCourseComparisonChart(courseData) {
+        const container = document.getElementById('course-comparison-chart');
+        if (!container) return;
+
+        if (typeof Highcharts === 'undefined') {
+            console.warn('Highcharts no está disponible para el reporte por curso');
+            return;
+        }
+
+        // Preparar datos para el gráfico
+        const courses = Object.keys(courseData);
+        const coursesNames = courses.map(key => COURSES[key] || key);
+        const attendanceData = courses.map(key => courseData[key].averageAttendance);
+        const studentsData = courses.map(key => courseData[key].totalStudents);
+
+        const chartConfig = {
+            chart: {
+                type: 'column',
+                height: 400,
+                backgroundColor: 'transparent'
+            },
+            title: {
+                text: 'Comparación de Cursos',
+                style: {
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    color: '#1f2937'
+                }
+            },
+            xAxis: {
+                categories: coursesNames,
+                title: {
+                    text: 'Cursos'
+                },
+                labels: {
+                    rotation: -45,
+                    style: {
+                        fontSize: '12px'
+                    }
+                }
+            },
+            yAxis: [{
+                title: {
+                    text: 'Porcentaje de Asistencia (%)',
+                    style: {
+                        color: '#10b981'
+                    }
+                },
+                labels: {
+                    format: '{value}%',
+                    style: {
+                        color: '#10b981'
+                    }
+                },
+                max: 100,
+                min: 0
+            }, {
+                title: {
+                    text: 'Número de Estudiantes',
+                    style: {
+                        color: '#667eea'
+                    }
+                },
+                labels: {
+                    style: {
+                        color: '#667eea'
+                    }
+                },
+                opposite: true
+            }],
+            series: [{
+                name: 'Asistencia Promedio (%)',
+                type: 'column',
+                yAxis: 0,
+                data: attendanceData.map(percentage => ({
+                    y: percentage,
+                    color: percentage >= 85 ? '#10b981' : 
+                           percentage >= 70 ? '#f59e0b' : '#ef4444'
+                })),
+                dataLabels: {
+                    enabled: true,
+                    format: '{y}%',
+                    style: {
+                        fontWeight: 'bold',
+                        color: 'white',
+                        textOutline: '1px contrast'
+                    }
+                }
+            }, {
+                name: 'Total de Estudiantes',
+                type: 'spline',
+                yAxis: 1,
+                data: studentsData,
+                color: '#667eea',
+                lineWidth: 3,
+                marker: {
+                    symbol: 'circle',
+                    radius: 5,
+                    fillColor: '#667eea'
+                }
+            }],
+            tooltip: {
+                shared: true,
+                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                borderColor: '#e5e7eb',
+                borderRadius: 8,
+                shadow: true
+            },
+            legend: {
+                align: 'center',
+                verticalAlign: 'bottom',
+                borderWidth: 0
+            },
+            plotOptions: {
+                column: {
+                    borderRadius: 4,
+                    borderWidth: 0
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+        };
+
+        Highcharts.chart(container, chartConfig);
+    }
+
+    /**
+     * Obtiene datos de tendencia mensual para el gráfico de área
+     */
+    getMonthlyTrendData() {
+        const today = new Date();
+        const dates = [];
+        const percentages = [];
+        
+        // Obtener datos de los últimos 15 días
+        for (let i = 14; i >= 0; i--) {
+            const date = new Date(today);
+            date.setDate(today.getDate() - i);
+            const dateStr = DateUtils.formatDateForInput(date);
+            const dayName = DateUtils.formatDate(date, { day: 'numeric', month: 'short' });
+            
+            const dayAttendance = this.attendance.filter(record => record.date === dateStr);
+            const present = dayAttendance.filter(record => record.status === ATTENDANCE_STATUS.PRESENT).length;
+            const total = dayAttendance.length;
+            const percentage = total > 0 ? Math.round((present / total) * 100) : 0;
+            
+            dates.push(dayName);
+            percentages.push(percentage);
+        }
+        
+        return {
+            dates,
+            percentages
+        };
     }
 
     /**
