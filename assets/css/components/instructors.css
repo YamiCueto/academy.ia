@@ -1,0 +1,419 @@
+/* ===================================
+   INSTRUCTORS.CSS - Estilos de Instructores
+   =================================== */
+
+/* -------------------------
+   Tabla de Instructores
+   ------------------------- */
+
+.instructor-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    color: white;
+    font-size: 1.5rem;
+}
+
+.instructor-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.instructor-name small {
+    font-weight: 400;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    display: block;
+    margin-top: 2px;
+}
+
+.email-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.email-link:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+.specialties-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    max-width: 200px;
+}
+
+.badge-specialty {
+    background: var(--gradient-primary);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.experience-badge {
+    background: var(--success-light);
+    color: var(--success-dark);
+    padding: 4px 12px;
+    border-radius: 14px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.courses-count {
+    background: var(--info-light);
+    color: var(--info-dark);
+    padding: 4px 8px;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-block;
+    min-width: 24px;
+    text-align: center;
+}
+
+.badge-status.badge-activo {
+    background: var(--success-light);
+    color: var(--success-dark);
+}
+
+.badge-status.badge-inactivo {
+    background: var(--danger-light);
+    color: var(--danger-dark);
+}
+
+.badge-status.badge-vacaciones {
+    background: var(--warning-light);
+    color: var(--warning-dark);
+}
+
+.badge-status.badge-licencia {
+    background: var(--info-light);
+    color: var(--info-dark);
+}
+
+/* -------------------------
+   Modal de Instructor
+   ------------------------- */
+
+.instructor-modal {
+    width: 90vw;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-section {
+    background: var(--surface-color);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.modal-section h4 {
+    color: var(--primary-color);
+    margin: 0 0 15px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.modal-section h4 i {
+    font-size: 1rem;
+}
+
+/* -------------------------
+   Especialidades Dinámicas
+   ------------------------- */
+
+.specialty-item {
+    background: #f8f9fa;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    transition: all 0.2s;
+}
+
+.specialty-item:hover {
+    border-color: var(--primary-light);
+    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.1);
+}
+
+.specialty-header {
+    display: flex;
+    justify-content: between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 10px;
+}
+
+.specialty-header h5 {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.remove-specialty {
+    background: var(--danger-color);
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.remove-specialty:hover {
+    background: var(--danger-dark);
+}
+
+.specialty-language {
+    font-weight: 500;
+}
+
+.specialty-language:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+/* -------------------------
+   Checkbox Groups
+   ------------------------- */
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    user-select: none;
+    transition: color 0.2s;
+}
+
+.checkbox-item:hover {
+    color: var(--primary-color);
+}
+
+.checkbox-item input[type="checkbox"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 3px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: white;
+}
+
+.checkbox-item input[type="checkbox"]:checked {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.checkbox-item input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.checkbox-item input[type="checkbox"]:hover {
+    border-color: var(--primary-light);
+}
+
+.checkbox-item .checkmark {
+    display: none; /* Usamos ::after en su lugar */
+}
+
+/* -------------------------
+   Botones de Acción Especiales
+   ------------------------- */
+
+#add-specialty {
+    background: var(--success-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 15px;
+}
+
+#add-specialty:hover {
+    background: var(--success-dark);
+    transform: translateY(-1px);
+}
+
+/* -------------------------
+   Responsive Design
+   ------------------------- */
+
+@media (max-width: 768px) {
+    .instructor-modal {
+        width: 95vw;
+        margin: 10px;
+    }
+    
+    .modal-section {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .specialty-item {
+        padding: 15px;
+    }
+    
+    .specialties-list {
+        max-width: 150px;
+    }
+    
+    .checkbox-group {
+        gap: 8px;
+    }
+    
+    .checkbox-item {
+        font-size: 0.85rem;
+    }
+    
+    .specialty-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .checkbox-group {
+        flex-direction: column;
+        gap: 6px;
+    }
+    
+    .instructor-avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 1.2rem;
+    }
+    
+    .specialties-list {
+        max-width: 120px;
+    }
+    
+    .badge-specialty {
+        font-size: 0.7rem;
+        padding: 1px 6px;
+    }
+}
+
+/* -------------------------
+   Estados de Carga
+   ------------------------- */
+
+.specialty-item.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.specialty-item.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary-light);
+    border-top: 2px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* -------------------------
+   Validación de Campos
+   ------------------------- */
+
+.specialty-item .form-input.error,
+.specialty-item .form-select.error {
+    border-color: var(--danger-color);
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+.specialty-error {
+    color: var(--danger-color);
+    font-size: 0.8rem;
+    margin-top: 4px;
+    display: block;
+}
+
+/* -------------------------
+   Animaciones
+   ------------------------- */
+
+.specialty-item {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.specialty-item.removing {
+    animation: slideOut 0.3s ease-in forwards;
+}
+
+@keyframes slideOut {
+    to {
+        opacity: 0;
+        transform: translateX(-100%);
+        height: 0;
+        margin: 0;
+        padding: 0;
+    }
+}

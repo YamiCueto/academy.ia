@@ -10,6 +10,7 @@ import { StudentsController } from './components/students.js';
 import { AttendanceController } from './components/attendance.js';
 import { ReportsController } from './components/reports.js';
 import { CoursesController } from './components/courses.js';
+import { InstructorsController } from './components/instructors.js';
 
 /**
  * Clase principal de la aplicación
@@ -145,6 +146,9 @@ class AttendanceApp {
         // Courses
         this.controllers.set('courses', new CoursesController());
         
+        // Instructors
+        this.controllers.set('instructors', new InstructorsController());
+        
         // Attendance
         this.controllers.set('attendance', new AttendanceController());
         
@@ -157,6 +161,7 @@ class AttendanceApp {
         // Referencias globales para uso en HTML
         window.attendanceController = this.controllers.get('attendance');
         window.coursesController = this.controllers.get('courses');
+        window.instructorsController = this.controllers.get('instructors');
     }
 
     /**
@@ -193,7 +198,7 @@ class AttendanceApp {
      */
     showSection(sectionName) {
         // Validar sección
-        const validSections = ['dashboard', 'students', 'courses', 'attendance', 'reports'];
+        const validSections = ['dashboard', 'students', 'courses', 'instructors', 'attendance', 'reports'];
         if (!validSections.includes(sectionName)) {
             console.error(`Invalid section: ${sectionName}`);
             return;

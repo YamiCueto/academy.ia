@@ -39,6 +39,7 @@ export const STORAGE_KEYS = {
     STUDENTS: 'students',
     ATTENDANCE: 'attendance',
     COURSES: 'courses',
+    INSTRUCTORS: 'instructors',
     SETTINGS: 'app_settings'
 };
 

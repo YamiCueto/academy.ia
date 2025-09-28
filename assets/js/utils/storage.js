@@ -123,7 +123,7 @@ export class StorageManager {
 
     /**
      * Guarda cursos en localStorage
-     * @param {Array} courses - Lista de cursos
+     * @param {Array} courses - Array de cursos
      * @returns {boolean} True si se guardó exitosamente
      */
     static saveCourses(courses) {
@@ -131,6 +131,35 @@ export class StorageManager {
     }
 
     /**
+     * Obtiene instructores del localStorage
+     * @returns {Array} Array de instructores
+     */
+    static getInstructors() {
+        return this.get(STORAGE_KEYS.INSTRUCTORS, []);
+    }
+
+    /**
+     * Guarda instructores en localStorage
+     * @param {Array} instructors - Array de instructores
+     * @returns {boolean} True si se guardó exitosamente
+     */
+    static saveInstructors(instructors) {
+        return this.set(STORAGE_KEYS.INSTRUCTORS, instructors);
+    }
+
+    /**
+     * Limpia todos los datos del localStorage
+     * @returns {boolean} True si se limpió exitosamente
+     */
+    static clearAll() {
+        try {
+            localStorage.clear();
+            return true;
+        } catch (error) {
+            console.error('Error clearing localStorage:', error);
+            return false;
+        }
+    }    /**
      * Obtiene configuración de la app
      * @returns {Object} Configuración de la aplicación
      */
