@@ -244,25 +244,28 @@ export class DashboardController {
     }
 
     /**
-     * Renderiza el gráfico de asistencias
+     * Renderiza el gráfico de asistencias con Highcharts
      */
     renderChart() {
-        const canvas = document.getElementById('attendanceChart');
-        if (!canvas) return;
+        const chartContainer = document.getElementById('attendanceChart');
+        if (!chartContainer) return;
 
         // Preparar datos para el gráfico (última semana)
         const chartData = this.prepareChartData();
         
-        // Implementar gráfico simple con Canvas API
-        this.drawChart(canvas, chartData);
+        // Crear gráfico con Highcharts
+        this.createHighchart(chartContainer, chartData);
     }
 
     /**
      * Prepara datos para el gráfico de la última semana
-     * @returns {Array} Datos del gráfico
+     * @returns {Object} Datos formateados para Highcharts
      */
     prepareChartData() {
-        const data = [];
+        const labels = [];
+        const presentData = [];
+        const absentData = [];
+        const lateData = [];
         const today = new Date();
         
         // Generar datos para los últimos 7 días
@@ -271,99 +274,142 @@ export class DashboardController {
             date.setDate(date.getDate() - i);
             const dateStr = DateUtils.formatDateForInput(date);
             
-            const dayAttendance = this.attendance.filter(record => 
-                record.date === dateStr && record.status === ATTENDANCE_STATUS.PRESENT
-            );
+            // Contar asistencias por estado
+            const dayAttendance = this.attendance.filter(record => record.date === dateStr);
+            const present = dayAttendance.filter(record => record.status === ATTENDANCE_STATUS.PRESENT).length;
+            const absent = dayAttendance.filter(record => record.status === ATTENDANCE_STATUS.ABSENT).length;
+            const late = dayAttendance.filter(record => record.status === ATTENDANCE_STATUS.LATE).length;
             
-            data.push({
-                date: dateStr,
-                label: DateUtils.getDayName(date).substring(0, 3),
-                value: dayAttendance.length
-            });
+            labels.push(DateUtils.getDayName(date).substring(0, 3));
+            presentData.push(present);
+            absentData.push(absent);
+            lateData.push(late);
         }
         
-        return data;
+        return {
+            labels: labels,
+            present: presentData,
+            absent: absentData,
+            late: lateData
+        };
     }
 
     /**
-     * Dibuja el gráfico en el canvas
-     * @param {HTMLCanvasElement} canvas - Canvas element
-     * @param {Array} data - Datos del gráfico
+     * Crea el gráfico con Highcharts
+     * @param {HTMLElement} container - Contenedor del gráfico
+     * @param {Object} data - Datos del gráfico
      */
-    drawChart(canvas, data) {
-        const ctx = canvas.getContext('2d');
-        const { width, height } = canvas;
-        
-        // Limpiar canvas
-        ctx.clearRect(0, 0, width, height);
-        
-        // Configuración
-        const padding = 40;
-        const chartWidth = width - (padding * 2);
-        const chartHeight = height - (padding * 2);
-        
-        // Encontrar valor máximo
-        const maxValue = Math.max(...data.map(d => d.value), 1);
-        
-        // Dibujar fondo
-        ctx.fillStyle = '#f8fafc';
-        ctx.fillRect(padding, padding, chartWidth, chartHeight);
-        
-        // Dibujar líneas de grilla
-        ctx.strokeStyle = '#e2e8f0';
-        ctx.lineWidth = 1;
-        
-        // Líneas horizontales
-        for (let i = 0; i <= 5; i++) {
-            const y = padding + (chartHeight / 5) * i;
-            ctx.beginPath();
-            ctx.moveTo(padding, y);
-            ctx.lineTo(padding + chartWidth, y);
-            ctx.stroke();
+    createHighchart(container, data) {
+        if (typeof Highcharts === 'undefined') {
+            console.warn('Highcharts no está disponible');
+            return;
         }
-        
-        // Líneas verticales
-        const barWidth = chartWidth / data.length;
-        for (let i = 0; i <= data.length; i++) {
-            const x = padding + barWidth * i;
-            ctx.beginPath();
-            ctx.moveTo(x, padding);
-            ctx.lineTo(x, padding + chartHeight);
-            ctx.stroke();
-        }
-        
-        // Dibujar barras
-        ctx.fillStyle = '#6366f1';
-        data.forEach((item, index) => {
-            const barHeight = (item.value / maxValue) * chartHeight;
-            const x = padding + (barWidth * index) + (barWidth * 0.1);
-            const y = padding + chartHeight - barHeight;
-            const width = barWidth * 0.8;
-            
-            ctx.fillRect(x, y, width, barHeight);
-            
-            // Etiquetas del día
-            ctx.fillStyle = '#64748b';
-            ctx.font = '12px Inter';
-            ctx.textAlign = 'center';
-            ctx.fillText(item.label, x + width/2, height - 10);
-            
-            // Valores
-            if (item.value > 0) {
-                ctx.fillStyle = '#ffffff';
-                ctx.font = 'bold 14px Inter';
-                ctx.fillText(item.value, x + width/2, y + barHeight/2 + 5);
+
+        // Configuración del gráfico
+        const chartConfig = {
+            chart: {
+                type: 'line',
+                height: 300,
+                backgroundColor: 'transparent'
+            },
+            title: {
+                text: 'Asistencias por Día (Última Semana)',
+                style: {
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    color: '#1f2937'
+                }
+            },
+            xAxis: {
+                categories: data.labels,
+                title: {
+                    text: 'Días de la Semana'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Número de Estudiantes'
+                },
+                min: 0
+            },
+            series: [{
+                name: 'Presente',
+                data: data.present,
+                color: '#10b981',
+                marker: {
+                    symbol: 'circle'
+                }
+            }, {
+                name: 'Ausente',
+                data: data.absent,
+                color: '#ef4444',
+                marker: {
+                    symbol: 'square'
+                }
+            }, {
+                name: 'Tardanza',
+                data: data.late,
+                color: '#f59e0b',
+                marker: {
+                    symbol: 'triangle'
+                }
+            }],
+            tooltip: {
+                shared: true,
+                crosshairs: true,
+                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                borderColor: '#e5e7eb',
+                borderRadius: 8,
+                shadow: true
+            },
+            legend: {
+                align: 'center',
+                verticalAlign: 'bottom',
+                borderWidth: 0
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: false
+                    },
+                    enableMouseTracking: true,
+                    marker: {
+                        radius: 4,
+                        states: {
+                            hover: {
+                                radius: 6
+                            }
+                        }
+                    }
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
             }
-            
-            ctx.fillStyle = '#6366f1';
-        });
+        };
+
+        // Crear el gráfico
+        const chart = Highcharts.chart(container, chartConfig);
         
-        // Título del gráfico
-        ctx.fillStyle = '#1e293b';
-        ctx.font = 'bold 16px Inter';
-        ctx.textAlign = 'left';
-        ctx.fillText('Asistencias Diarias', padding, 25);
+        // Guardar referencia para posibles actualizaciones
+        this.chart = chart;
     }
+
+
 
     /**
      * Exporta datos del dashboard
