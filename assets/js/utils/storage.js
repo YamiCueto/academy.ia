@@ -114,6 +114,23 @@ export class StorageManager {
     }
 
     /**
+     * Obtiene cursos del localStorage
+     * @returns {Array} Lista de cursos
+     */
+    static getCourses() {
+        return this.get(STORAGE_KEYS.COURSES, []);
+    }
+
+    /**
+     * Guarda cursos en localStorage
+     * @param {Array} courses - Lista de cursos
+     * @returns {boolean} True si se guardó exitosamente
+     */
+    static saveCourses(courses) {
+        return this.set(STORAGE_KEYS.COURSES, courses);
+    }
+
+    /**
      * Obtiene configuración de la app
      * @returns {Object} Configuración de la aplicación
      */
@@ -142,6 +159,7 @@ export class StorageManager {
         return {
             students: this.getStudents(),
             attendance: this.getAttendance(),
+            courses: this.getCourses(),
             settings: this.getSettings(),
             exportDate: new Date().toISOString(),
             version: '1.0.0'
@@ -160,6 +178,9 @@ export class StorageManager {
             }
             if (data.attendance) {
                 this.saveAttendance(data.attendance);
+            }
+            if (data.courses) {
+                this.saveCourses(data.courses);
             }
             if (data.settings) {
                 this.saveSettings(data.settings);

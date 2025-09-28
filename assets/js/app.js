@@ -9,6 +9,7 @@ import { DashboardController } from './components/dashboard.js';
 import { StudentsController } from './components/students.js';
 import { AttendanceController } from './components/attendance.js';
 import { ReportsController } from './components/reports.js';
+import { CoursesController } from './components/courses.js';
 
 /**
  * Clase principal de la aplicación
@@ -141,6 +142,9 @@ class AttendanceApp {
         // Students
         this.controllers.set('students', new StudentsController());
         
+        // Courses
+        this.controllers.set('courses', new CoursesController());
+        
         // Attendance
         this.controllers.set('attendance', new AttendanceController());
         
@@ -152,6 +156,7 @@ class AttendanceApp {
         
         // Referencias globales para uso en HTML
         window.attendanceController = this.controllers.get('attendance');
+        window.coursesController = this.controllers.get('courses');
     }
 
     /**
@@ -188,7 +193,7 @@ class AttendanceApp {
      */
     showSection(sectionName) {
         // Validar sección
-        const validSections = ['dashboard', 'students', 'attendance', 'reports'];
+        const validSections = ['dashboard', 'students', 'courses', 'attendance', 'reports'];
         if (!validSections.includes(sectionName)) {
             console.error(`Invalid section: ${sectionName}`);
             return;
@@ -228,6 +233,7 @@ class AttendanceApp {
         const titles = {
             dashboard: 'Dashboard',
             students: 'Gestión de Estudiantes',
+            courses: 'Gestión de Cursos',
             attendance: 'Control de Asistencias',
             reports: 'Reportes y Estadísticas'
         };
@@ -244,6 +250,11 @@ class AttendanceApp {
 
         // Actualizar sección actual
         this.currentSection = sectionName;
+
+        // Disparar evento de cambio de sección
+        document.dispatchEvent(new CustomEvent('section-changed', {
+            detail: { section: sectionName }
+        }));
 
         // Cerrar sidebar en mobile después de navegar
         if (window.innerWidth <= 768) {

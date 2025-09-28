@@ -767,3 +767,149 @@
         min-height: 200px;
     }
 }
+
+/* ===== COURSES STYLES ===== */
+.badge-language {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.badge-language.badge-inglés {
+    background-color: #e3f2fd;
+    color: #1565c0;
+}
+
+.badge-language.badge-francés {
+    background-color: #fce4ec;
+    color: #c2185b;
+}
+
+.badge-language.badge-alemán {
+    background-color: #f3e5f5;
+    color: #7b1fa2;
+}
+
+.badge-language.badge-portugués {
+    background-color: #e8f5e8;
+    color: #388e3c;
+}
+
+.badge-language.badge-italiano {
+    background-color: #fff3e0;
+    color: #f57c00;
+}
+
+.badge-level {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.badge-level.badge-principiante {
+    background-color: #e8f5e8;
+    color: #2e7d32;
+}
+
+.badge-level.badge-intermedio {
+    background-color: #fff3e0;
+    color: #f57c00;
+}
+
+.badge-level.badge-avanzado {
+    background-color: #ffebee;
+    color: #d32f2f;
+}
+
+.badge-status {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.badge-status.badge-planificado {
+    background-color: #e3f2fd;
+    color: #1565c0;
+}
+
+.badge-status.badge-activo {
+    background-color: #e8f5e8;
+    color: #2e7d32;
+}
+
+.badge-status.badge-finalizado {
+    background-color: #f3e5f5;
+    color: #7b1fa2;
+}
+
+.badge-status.badge-cancelado {
+    background-color: #ffebee;
+    color: #d32f2f;
+}
+
+.students-count {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+/* Form textarea */
+.form-textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-family: inherit;
+    background: var(--white);
+    color: var(--text-primary);
+    transition: var(--transition);
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.form-textarea.error {
+    border-color: var(--danger-color);
+    background-color: #fef2f2;
+}
+
+/* Course code validation styles */
+#course-code {
+    text-transform: uppercase;
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-weight: 600;
+}
+
+/* Responsive table improvements for courses */
+@media (max-width: 768px) {
+    .data-table th,
+    .data-table td {
+        padding: 0.5rem 0.25rem;
+        font-size: 0.85rem;
+    }
+    
+    .badge-language,
+    .badge-level,
+    .badge-status {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+    }
+    
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+    }
+    
+    .btn-sm i {
+        font-size: 0.8rem;
+    }
+}

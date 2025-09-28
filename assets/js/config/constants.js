@@ -38,6 +38,7 @@ export const ATTENDANCE_LABELS = {
 export const STORAGE_KEYS = {
     STUDENTS: 'students',
     ATTENDANCE: 'attendance',
+    COURSES: 'courses',
     SETTINGS: 'app_settings'
 };
 

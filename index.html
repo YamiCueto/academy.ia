@@ -79,6 +79,15 @@
                     </a>
                 </li>
                 <li role="none">
+                    <a href="#courses" 
+                       class="menu-item" 
+                       data-section="courses"
+                       role="menuitem">
+                        <i class="fas fa-book-open" aria-hidden="true"></i> 
+                        Cursos
+                    </a>
+                </li>
+                <li role="none">
                     <a href="#reports" 
                        class="menu-item" 
                        data-section="reports"
@@ -190,6 +199,71 @@
                                     </tr>
                                 </thead>
                                 <tbody id="students-tbody">
+                                    <!-- Se llenará dinámicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Courses Section -->
+            <section id="courses-section" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Gestión de Cursos</h3>
+                        <button class="btn btn-primary" id="add-course">
+                            <i class="fas fa-plus"></i> Agregar Curso
+                        </button>
+                    </div>
+                    <div class="card-content">
+                        <!-- Filtros de cursos -->
+                        <div class="filters-section mb-3">
+                            <div class="form-group">
+                                <input type="search" 
+                                       id="course-search" 
+                                       class="form-input" 
+                                       placeholder="Buscar curso..."
+                                       aria-label="Buscar curso">
+                            </div>
+                            <div class="form-group">
+                                <select id="course-level-filter" class="form-select" aria-label="Filtrar por nivel">
+                                    <option value="">Todos los niveles</option>
+                                    <option value="Principiante">Principiante</option>
+                                    <option value="Intermedio">Intermedio</option>
+                                    <option value="Avanzado">Avanzado</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select id="course-language-filter" class="form-select" aria-label="Filtrar por idioma">
+                                    <option value="">Todos los idiomas</option>
+                                    <option value="Inglés">Inglés</option>
+                                    <option value="Francés">Francés</option>
+                                    <option value="Alemán">Alemán</option>
+                                    <option value="Portugués">Portugués</option>
+                                    <option value="Italiano">Italiano</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Tabla de cursos -->
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Nombre del Curso</th>
+                                        <th>Idioma</th>
+                                        <th>Nivel</th>
+                                        <th>Duración</th>
+                                        <th>Horario</th>
+                                        <th>Instructor</th>
+                                        <th>Estudiantes</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="courses-tbody">
                                     <!-- Se llenará dinámicamente -->
                                 </tbody>
                             </table>
@@ -372,6 +446,162 @@
                     <div class="card-footer">
                         <button type="button" class="btn btn-outline" id="cancel-attendance">Cancelar</button>
                         <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para agregar/editar curso -->
+    <div class="modal-overlay" id="course-modal">
+        <div class="modal" role="dialog" aria-labelledby="course-modal-title" aria-modal="true">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title" id="course-modal-title">Agregar Curso</h3>
+                    <button class="btn btn-outline" id="close-course-modal" aria-label="Close modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form id="course-form" class="card-content">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="course-code" class="form-label">Código del Curso *</label>
+                            <input type="text" 
+                                   id="course-code" 
+                                   name="code"
+                                   class="form-input" 
+                                   placeholder="Ej: ENG-101"
+                                   required
+                                   maxlength="10">
+                            <small id="code-error" class="error-message"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="course-name" class="form-label">Nombre del Curso *</label>
+                            <input type="text" 
+                                   id="course-name" 
+                                   name="name"
+                                   class="form-input" 
+                                   placeholder="Ej: Inglés Básico"
+                                   required
+                                   maxlength="100">
+                            <small id="name-error" class="error-message"></small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="course-language" class="form-label">Idioma *</label>
+                            <select id="course-language" name="language" class="form-select" required>
+                                <option value="">Seleccionar idioma</option>
+                                <option value="Inglés">Inglés</option>
+                                <option value="Francés">Francés</option>
+                                <option value="Alemán">Alemán</option>
+                                <option value="Portugués">Portugués</option>
+                                <option value="Italiano">Italiano</option>
+                                <option value="Japonés">Japonés</option>
+                                <option value="Chino">Chino</option>
+                            </select>
+                            <small id="language-error" class="error-message"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="course-level" class="form-label">Nivel *</label>
+                            <select id="course-level" name="level" class="form-select" required>
+                                <option value="">Seleccionar nivel</option>
+                                <option value="Principiante">Principiante</option>
+                                <option value="Intermedio">Intermedio</option>
+                                <option value="Avanzado">Avanzado</option>
+                            </select>
+                            <small id="level-error" class="error-message"></small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="course-duration" class="form-label">Duración (semanas) *</label>
+                            <input type="number" 
+                                   id="course-duration" 
+                                   name="duration"
+                                   class="form-input" 
+                                   placeholder="Ej: 12"
+                                   required
+                                   min="1"
+                                   max="52">
+                            <small id="duration-error" class="error-message"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="course-schedule" class="form-label">Horario *</label>
+                            <input type="text" 
+                                   id="course-schedule" 
+                                   name="schedule"
+                                   class="form-input" 
+                                   placeholder="Ej: Lun-Mié-Vie 18:00-20:00"
+                                   required
+                                   maxlength="50">
+                            <small id="schedule-error" class="error-message"></small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="course-instructor" class="form-label">Instructor *</label>
+                            <input type="text" 
+                                   id="course-instructor" 
+                                   name="instructor"
+                                   class="form-input" 
+                                   placeholder="Nombre del instructor"
+                                   required
+                                   maxlength="100">
+                            <small id="instructor-error" class="error-message"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="course-capacity" class="form-label">Capacidad Máxima</label>
+                            <input type="number" 
+                                   id="course-capacity" 
+                                   name="capacity"
+                                   class="form-input" 
+                                   placeholder="Ej: 20"
+                                   min="1"
+                                   max="50"
+                                   value="20">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="course-description" class="form-label">Descripción</label>
+                        <textarea id="course-description" 
+                                  name="description"
+                                  class="form-textarea" 
+                                  placeholder="Descripción del curso..."
+                                  maxlength="500"
+                                  rows="3"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="course-start-date" class="form-label">Fecha de Inicio</label>
+                            <input type="date" 
+                                   id="course-start-date" 
+                                   name="startDate"
+                                   class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="course-status" class="form-label">Estado</label>
+                            <select id="course-status" name="status" class="form-select">
+                                <option value="planificado">Planificado</option>
+                                <option value="activo">Activo</option>
+                                <option value="finalizado">Finalizado</option>
+                                <option value="cancelado">Cancelado</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-outline" id="cancel-course">
+                            <i class="fas fa-times"></i> Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-primary" id="save-course">
+                            <i class="fas fa-save"></i> <span id="save-course-text">Guardar Curso</span>
+                        </button>
                     </div>
                 </form>
             </div>

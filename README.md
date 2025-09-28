@@ -575,7 +575,7 @@ MIT License - Puedes usar, modificar y distribuir libremente
 ---
 
 <div align="center">
-<sub>Hecho con ❤️ por <a href="https://github.com/YamiCueto">YamiCueto</a> - 2024</sub>
+<sub>Hecho con ❤️ por <a href="https://github.com/YamiCueto">YamiCueto</a> - 2025</sub>
 </div>
 | **HTML5** | Estructura semántica y moderna |
 | **CSS3** | Estilos avanzados con variables CSS y gradientes |
