@@ -1,0 +1,177 @@
+/* =================================
+   SweetAlert2 Custom Styles
+   ================================= */
+
+/* Personalización del popup principal */
+.swal2-popup {
+    border-radius: 12px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Personalización del título */
+.swal2-title {
+    color: #2c3e50 !important;
+    font-weight: 600 !important;
+    font-size: 1.25rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+/* Personalización del texto */
+.swal2-content {
+    color: #546e7a !important;
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+}
+
+/* Personalización de botones */
+.swal2-confirm {
+    background-color: #007bff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    padding: 0.6rem 1.5rem !important;
+    font-size: 0.9rem !important;
+    transition: all 0.2s ease !important;
+}
+
+.swal2-confirm:hover {
+    background-color: #0056b3 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3) !important;
+}
+
+.swal2-cancel {
+    background-color: #6c757d !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    padding: 0.6rem 1.5rem !important;
+    font-size: 0.9rem !important;
+    transition: all 0.2s ease !important;
+}
+
+.swal2-cancel:hover {
+    background-color: #545b62 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3) !important;
+}
+
+/* Botón de eliminar (rojo) */
+.swal2-confirm.swal2-styled.swal2-delete {
+    background-color: #dc3545 !important;
+}
+
+.swal2-confirm.swal2-styled.swal2-delete:hover {
+    background-color: #c82333 !important;
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3) !important;
+}
+
+/* Personalización de iconos */
+.swal2-icon.swal2-success {
+    border-color: #28a745 !important;
+    color: #28a745 !important;
+}
+
+.swal2-icon.swal2-error {
+    border-color: #dc3545 !important;
+    color: #dc3545 !important;
+}
+
+.swal2-icon.swal2-warning {
+    border-color: #ffc107 !important;
+    color: #ffc107 !important;
+}
+
+.swal2-icon.swal2-info {
+    border-color: #17a2b8 !important;
+    color: #17a2b8 !important;
+}
+
+.swal2-icon.swal2-question {
+    border-color: #6f42c1 !important;
+    color: #6f42c1 !important;
+}
+
+/* Personalización de la barra de progreso del timer */
+.swal2-timer-progress-bar {
+    background-color: #007bff !important;
+}
+
+/* Personalización del overlay */
+.swal2-backdrop-show {
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    backdrop-filter: blur(2px) !important;
+    -webkit-backdrop-filter: blur(2px) !important;
+}
+
+/* Animaciones mejoradas */
+.swal2-show {
+    animation: swal2-show 0.3s ease-out !important;
+}
+
+.swal2-hide {
+    animation: swal2-hide 0.2s ease-in !important;
+}
+
+@keyframes swal2-show {
+    0% {
+        transform: scale(0.7) translateY(-20px);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes swal2-hide {
+    0% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.8) translateY(-20px);
+        opacity: 0;
+    }
+}
+
+/* Responsivo para móviles */
+@media (max-width: 768px) {
+    .swal2-popup {
+        width: 90% !important;
+        margin: 0 auto !important;
+        border-radius: 8px !important;
+    }
+    
+    .swal2-title {
+        font-size: 1.1rem !important;
+    }
+    
+    .swal2-content {
+        font-size: 0.9rem !important;
+    }
+    
+    .swal2-confirm,
+    .swal2-cancel {
+        padding: 0.75rem 1.25rem !important;
+        font-size: 0.85rem !important;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .swal2-popup {
+        background-color: #2d3748 !important;
+        border-color: rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    .swal2-title {
+        color: #f7fafc !important;
+    }
+    
+    .swal2-content {
+        color: #cbd5e0 !important;
+    }
+}

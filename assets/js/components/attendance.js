@@ -185,7 +185,7 @@ export class AttendanceController {
     /**
      * Maneja el envío del formulario de asistencia
      */
-    handleFormSubmit(e) {
+    async handleFormSubmit(e) {
         e.preventDefault();
         
         const formData = new FormData(e.target);
@@ -199,7 +199,7 @@ export class AttendanceController {
 
         // Validar datos
         if (!attendanceData.studentId || !attendanceData.date || !attendanceData.status) {
-            alert('Por favor complete todos los campos obligatorios');
+            window.app.showAlert('Por favor complete todos los campos obligatorios', 'warning');
             return;
         }
 
@@ -210,14 +210,23 @@ export class AttendanceController {
         );
 
         if (existingRecord) {
-            if (confirm('Ya existe un registro de asistencia para este estudiante en esta fecha. ¿Desea actualizarlo?')) {
+            const confirmed = await window.app.showConfirm(
+                'Registro Duplicado',
+                'Ya existe un registro de asistencia para este estudiante en esta fecha. ¿Desea actualizarlo?',
+                'Sí, actualizar',
+                'Cancelar'
+            );
+            
+            if (confirmed) {
                 existingRecord.status = attendanceData.status;
                 existingRecord.notes = attendanceData.notes;
+                window.app.showAlert('Registro de asistencia actualizado correctamente', 'success');
             } else {
                 return;
             }
         } else {
             this.attendance.push(attendanceData);
+            window.app.showAlert('Registro de asistencia creado correctamente', 'success');
         }
 
         // Guardar en localStorage
@@ -234,15 +243,22 @@ export class AttendanceController {
         // Cerrar modal
         this.hideModal();
 
-        // Mostrar confirmación
-        this.showSuccessMessage('Asistencia registrada correctamente');
+        // Limpiar formulario y mostrar confirmación
+        document.getElementById('attendance-form').reset();
     }
 
     /**
      * Elimina un registro de asistencia
      */
-    deleteAttendance(recordId) {
-        if (confirm('¿Está seguro de eliminar este registro de asistencia?')) {
+    async deleteAttendance(recordId) {
+        const confirmed = await window.app.showConfirm(
+            'Eliminar Registro',
+            '¿Está seguro de eliminar este registro de asistencia?',
+            'Sí, eliminar',
+            'Cancelar'
+        );
+
+        if (confirmed) {
             this.attendance = this.attendance.filter(record => record.id !== recordId);
             StorageManager.saveAttendance(this.attendance);
             this.renderAttendanceTable();
@@ -250,27 +266,16 @@ export class AttendanceController {
             // Disparar evento de actualización
             document.dispatchEvent(new CustomEvent('attendance-updated'));
             
-            this.showSuccessMessage('Registro eliminado correctamente');
+            window.app.showAlert('Registro eliminado correctamente', 'success');
         }
     }
 
     /**
-     * Muestra mensaje de éxito
+     * Muestra mensaje de éxito usando SweetAlert2
      */
     showSuccessMessage(message) {
-        // Simple implementación - se puede mejorar con un sistema de notificaciones
-        const successDiv = document.createElement('div');
-        successDiv.className = 'alert alert-success';
-        successDiv.textContent = message;
-        successDiv.style.position = 'fixed';
-        successDiv.style.top = '20px';
-        successDiv.style.right = '20px';
-        successDiv.style.zIndex = '10000';
-        
-        document.body.appendChild(successDiv);
-        
-        setTimeout(() => {
-            document.body.removeChild(successDiv);
-        }, 3000);
+        if (window.app && window.app.showAlert) {
+            window.app.showAlert(message, 'success');
+        }
     }
 }

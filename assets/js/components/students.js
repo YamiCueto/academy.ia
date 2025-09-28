@@ -328,11 +328,18 @@ export class StudentsController {
      * Elimina un estudiante
      * @param {number} studentId - ID del estudiante
      */
-    deleteStudent(studentId) {
+    async deleteStudent(studentId) {
         const student = this.students.find(s => s.id === studentId);
         if (!student) return;
 
-        if (confirm(`¿Estás seguro de eliminar a ${student.name}?`)) {
+        const confirmed = await window.app.showConfirm(
+            'Eliminar Estudiante',
+            `¿Estás seguro de eliminar a ${student.name}? Esta acción no se puede deshacer.`,
+            'Sí, eliminar',
+            'Cancelar'
+        );
+
+        if (confirmed) {
             this.students = this.students.filter(s => s.id !== studentId);
             StorageManager.saveStudents(this.students);
             this.loadData();
@@ -342,6 +349,9 @@ export class StudentsController {
             document.dispatchEvent(new CustomEvent('student-deleted', {
                 detail: { studentId }
             }));
+
+            // Mostrar mensaje de éxito
+            window.app.showAlert(`Estudiante ${student.name} eliminado correctamente`, 'success');
             
             this.showMessage(MESSAGES.SUCCESS.STUDENT_DELETED, 'success');
         }

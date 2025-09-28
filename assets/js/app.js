@@ -295,47 +295,159 @@ class AttendanceApp {
     }
 
     /**
-     * Muestra una alerta
+     * Muestra una alerta usando SweetAlert2
      * @param {string} message - Mensaje a mostrar
-     * @param {string} type - Tipo de alerta (success, warning, danger, info)
+     * @param {string} type - Tipo de alerta (success, warning, error, info)
      */
     showAlert(message, type = 'info') {
-        // Crear elemento de alerta
-        const alert = document.createElement('div');
-        alert.className = `alert alert-${type}`;
-        alert.innerHTML = `
-            <i class="fas fa-${this.getAlertIcon(type)}"></i>
-            <span>${message}</span>
-        `;
+        const swalConfig = {
+            title: this.getAlertTitle(type),
+            text: message,
+            icon: this.getSwalIcon(type),
+            confirmButtonText: 'Entendido',
+            confirmButtonColor: this.getButtonColor(type),
+            timer: type === 'success' ? 3000 : null,
+            timerProgressBar: type === 'success',
+            background: '#ffffff',
+            color: '#1f2937',
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+            backdrop: `rgba(0, 0, 0, 0.2)`,
+            showClass: {
+                popup: 'swal2-show'
+            },
+            hideClass: {
+                popup: 'swal2-hide'
+            }
+        };
 
-        // Agregar al DOM
-        const container = document.querySelector('.main-content');
-        if (container) {
-            container.insertBefore(alert, container.firstChild);
-            
-            // Auto-ocultar después de 5 segundos
-            setTimeout(() => {
-                if (alert.parentNode) {
-                    alert.remove();
-                }
-            }, 5000);
-        }
+        Swal.fire(swalConfig);
     }
 
     /**
-     * Obtiene el icono para el tipo de alerta
-     * @param {string} type - Tipo de alerta
-     * @returns {string} Clase del icono
+     * Muestra un diálogo de confirmación usando SweetAlert2
+     * @param {string} title - Título del diálogo
+     * @param {string} message - Mensaje de confirmación
+     * @param {string} confirmText - Texto del botón de confirmación
+     * @param {string} cancelText - Texto del botón de cancelación
+     * @returns {Promise<boolean>} - True si se confirma, false si se cancela
      */
-    getAlertIcon(type) {
+    async showConfirm(title = '¿Estás seguro?', message = '', confirmText = 'Sí, continuar', cancelText = 'Cancelar') {
+        const result = await Swal.fire({
+            title: title,
+            text: message,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#dc3545',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: confirmText,
+            cancelButtonText: cancelText,
+            reverseButtons: true,
+            focusCancel: true,
+            background: '#ffffff',
+            color: '#1f2937',
+            backdrop: `rgba(0, 0, 0, 0.2)`,
+            allowOutsideClick: false,
+            allowEscapeKey: true,
+            buttonsStyling: true,
+            customClass: {
+                confirmButton: 'swal2-delete',
+                cancelButton: 'swal2-cancel'
+            }
+        });
+
+        return result.isConfirmed;
+    }
+
+    /**
+     * Muestra un toast (notificación pequeña) usando SweetAlert2
+     * @param {string} message - Mensaje a mostrar
+     * @param {string} type - Tipo de toast (success, warning, error, info)
+     */
+    showToast(message, type = 'info') {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+        });
+
+        Toast.fire({
+            icon: this.getSwalIcon(type),
+            title: message
+        });
+    }
+
+    /**
+     * Obtiene el icono de SweetAlert2 para el tipo de alerta
+     * @param {string} type - Tipo de alerta
+     * @returns {string} Icono de SweetAlert2
+     */
+    getSwalIcon(type) {
         const icons = {
-            success: 'check-circle',
-            warning: 'exclamation-triangle',
-            danger: 'times-circle',
-            info: 'info-circle'
+            success: 'success',
+            warning: 'warning',
+            danger: 'error',
+            error: 'error',
+            info: 'info'
         };
         
-        return icons[type] || 'info-circle';
+        return icons[type] || 'info';
+    }
+
+    /**
+     * Obtiene el título para el tipo de alerta
+     * @param {string} type - Tipo de alerta
+     * @returns {string} Título apropiado
+     */
+    getAlertTitle(type) {
+        const titles = {
+            success: '¡Éxito!',
+            warning: 'Atención',
+            danger: 'Error',
+            error: 'Error',
+            info: 'Información'
+        };
+        
+        return titles[type] || 'Información';
+    }
+
+    /**
+     * Obtiene el color del botón para el tipo de alerta
+     * @param {string} type - Tipo de alerta
+     * @returns {string} Color del botón
+     */
+    getButtonColor(type) {
+        const colors = {
+            success: '#28a745',
+            warning: '#ffc107',
+            danger: '#dc3545',
+            error: '#dc3545',
+            info: '#007bff'
+        };
+        
+        return colors[type] || '#007bff';
+    }
+
+    /**
+     * Obtiene el color del botón de confirmación
+     * @param {string} type - Tipo de confirmación
+     * @returns {string} Color del botón
+     */
+    getConfirmButtonColor(type) {
+        const colors = {
+            delete: '#dc3545',
+            warning: '#ffc107',
+            info: '#007bff',
+            danger: '#dc3545'
+        };
+        
+        return colors[type] || '#dc3545';
     }
 
     /**
