@@ -1,9 +1,13 @@
-# 🎓 Academia de Idiomas - Sistema de Control de Asistencias
+# 🎓 Academia de Idiomas - - [📂 Estructura del Proyecto](#-estructura-del-proyecto)
+- [🛠️ Tecnologías Utilizadas](#️-tecnologías-utilizadas)
+- [📊 Gráficos y Visualizaciones](#-gráficos-y-visualizaciones)
+- [🚀 Instalación y Uso](#-instalación-y-uso)tema de Control de Asistencias
 
 <div align="center">
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
   <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3">
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
+  <img src="https://img.shields.io/badge/Highcharts-003366?style=for-the-badge&logo=highcharts&logoColor=white" alt="Highcharts">
   <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge" alt="Status">
 </div>
 
@@ -42,9 +46,11 @@
 
 ### 🎯 **Dashboard Interactivo**
 
-- Visualización de estadísticas en tiempo real
-- Gráficos modernos y tarjetas informativas
-- Resumen de actividades del día
+- 📊 **Reportes Profesionales**: Gráficos interactivos y accesibles con Highcharts v4.4.0
+- 📈 **Estadísticas en tiempo real** - Métricas actualizadas automáticamente
+- 🎨 **Diseño moderno** - Tarjetas informativas con gradientes y animaciones
+- ♿ **Totalmente accesible** - Navegación por teclado y compatible con screen readers
+- 📱 **Responsive design** - Adaptable a todos los dispositivos
 
 ### 👨‍🎓 **Gestión de Estudiantes**
 
@@ -243,6 +249,7 @@ academy-ia/
 | ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white) | Estructura semántica y accesible + ARIA |
 | ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white) | Estilos modulares + CSS Variables + Responsive |
 | ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black) | ES6+ Modules + Event Handling + Touch Events |
+| ![Highcharts](https://img.shields.io/badge/Highcharts-003366?style=flat&logo=highcharts&logoColor=white) | **Gráficos profesionales interactivos + Accesibilidad** |
 | ![LocalStorage](https://img.shields.io/badge/LocalStorage-FF6B6B?style=flat&logo=html5&logoColor=white) | Persistencia de datos del lado cliente |
 | ![Responsive](https://img.shields.io/badge/Mobile_First-4FC08D?style=flat&logo=css3&logoColor=white) | Design responsive con 4 breakpoints |
 | ![Accessibility](https://img.shields.io/badge/A11y_WCAG-000000?style=flat&logo=accessibility&logoColor=white) | WCAG 2.1 AA + Touch targets + Keyboard nav |
@@ -250,7 +257,51 @@ academy-ia/
 
 ---
 
-## 🚀 Instalación y Uso
+## � Gráficos y Visualizaciones
+
+### 🎨 **Tecnología: Highcharts**
+
+Academy IA utiliza **[Highcharts](https://www.highcharts.com/)** como librería principal para visualización de datos, proporcionando gráficos profesionales, interactivos y accesibles.
+
+#### 📈 **Tipos de Gráficos Implementados:**
+
+| Sección | Tipo de Gráfico | Descripción |
+|---------|-----------------|-------------|
+| **🏠 Dashboard** | `Líneas Multi-series` | Tendencia semanal de asistencias (Presente, Ausente, Tardanza) |
+| **📊 Reportes Semanales** | `Barras + Líneas Combinadas` | Porcentajes de asistencia y número de estudiantes por día |
+| **📈 Reportes Mensuales** | `Área con Gradiente` | Tendencia de asistencia de los últimos 15 días |
+| **🏆 Reportes por Curso** | `Columnas + Spline` | Comparación entre cursos con doble eje Y |
+
+#### ✨ **Características de los Gráficos:**
+
+- **📱 100% Responsive** - Se adaptan automáticamente a móvil y desktop
+- **⚡ Interactivos** - Tooltips, hover effects, zoom y navegación
+- **♿ Accesibles** - Módulo de accesibilidad integrado para screen readers
+- **⌨️ Navigation** - Navegación completa por teclado (Tab, flechas)
+- **🎨 Tema Consistente** - Colores y estilos acordes al diseño general
+- **📊 Multi-datos** - Múltiples series de datos en un solo gráfico
+
+#### 🔧 **Configuración Técnica:**
+
+```javascript
+// Carga automática desde CDN
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+// Gestión centralizada en ChartManager
+import { ChartManager } from './utils/charts.js';
+```
+
+#### 🎯 **Beneficios para el Usuario:**
+
+- **📊 Visualización Clara** - Datos complejos presentados de forma intuitiva
+- **🔍 Análisis Profundo** - Identificación rápida de patrones y tendencias
+- **📱 Experiencia Móvil** - Gráficos optimizados para pantallas táctiles
+- **⚡ Carga Rápida** - Renderizado eficiente con alta performance
+
+---
+
+## �🚀 Instalación y Uso
 
 ### 🖥️ **Instalación Local**
 
@@ -667,7 +718,8 @@ El sistema incluye soporte para múltiples cursos de idiomas:
 - 📧 Sistema de notificaciones por email
 - 📱 App móvil complementaria
 - 🔐 Sistema de autenticación
-- 📈 Más tipos de reportes y gráficos
+- 🎯 Filtros avanzados en reportes
+- 📤 Exportar reportes a PDF/Excel
 
 ## 🐛 Reportar Issues
 
@@ -681,6 +733,13 @@ El sistema incluye soporte para múltiples cursos de idiomas:
    - Screenshots si es necesario
 
 ## 📝 Changelog
+
+### v1.1.0 (2024-01-20)
+- 🎨 Migración a Highcharts para visualizaciones profesionales
+- ♿ Implementación de módulo de accesibilidad para gráficos
+- 📊 Nuevos tipos de gráficos: área, líneas combinadas con barras
+- 🔄 Mejoras en interactividad y responsividad de gráficos
+- 📚 Documentación completa actualizada
 
 ### v1.0.0 (2024-01-15)
 - 🎉 Lanzamiento inicial
