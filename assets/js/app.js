@@ -4,6 +4,8 @@
 
 import { StorageManager } from './utils/storage.js';
 import { DateUtils } from './utils/date-utils.js';
+import logger from './utils/logger.js';
+import './utils/cookie-manager.js';
 import { COURSES, COURSE_LEVELS, APP_CONFIG } from './config/constants.js';
 import { DashboardController } from './components/dashboard.js';
 import { StudentsController } from './components/students.js';
@@ -41,7 +43,7 @@ class AttendanceApp {
         // Actualizar fecha cada minuto
         setInterval(() => this.updateCurrentDate(), 60000);
         
-        console.log(`${APP_CONFIG.NAME} v${APP_CONFIG.VERSION} initialized`);
+        logger.log(`${APP_CONFIG.NAME} v${APP_CONFIG.VERSION} initialized`);
     }
 
     /**
@@ -201,7 +203,7 @@ class AttendanceApp {
         // Validar sección
         const validSections = ['dashboard', 'students', 'courses', 'instructors', 'attendance', 'reports'];
         if (!validSections.includes(sectionName)) {
-            console.error(`Invalid section: ${sectionName}`);
+            logger.error(`Invalid section: ${sectionName}`);
             return;
         }
 
@@ -482,7 +484,7 @@ class AttendanceApp {
      * @param {string} context - Contexto donde ocurrió el error
      */
     handleError(error, context = 'Unknown') {
-        console.error(`Error in ${context}:`, error);
+        logger.error(`Error in ${context}:`, error);
         this.showAlert(`Error: ${error.message}`, 'danger');
     }
 
@@ -505,11 +507,11 @@ class AttendanceApp {
 document.addEventListener('DOMContentLoaded', () => {
     // Global error handler
     window.addEventListener('error', (e) => {
-        console.error('Global error:', e.error);
+        logger.error('Global error:', e.error);
     });
 
     window.addEventListener('unhandledrejection', (e) => {
-        console.error('Unhandled promise rejection:', e.reason);
+        logger.error('Unhandled promise rejection:', e.reason);
     });
 
     // Inicializar aplicación
@@ -529,7 +531,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
     } catch (error) {
-        console.error('Failed to initialize app:', error);
+        logger.error('Failed to initialize app:', error);
         
         // Mostrar error al usuario
         const errorDiv = document.createElement('div');

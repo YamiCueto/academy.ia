@@ -1,0 +1,28 @@
+{
+  "name": "Academia de Idiomas - Control de Asistencias",
+  "short_name": "Academia IA",
+  "description": "Sistema moderno para el control de asistencias en academias de idiomas",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#48bb78",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "assets/images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/images/icon-512.png", 
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "categories": ["education", "productivity", "business"],
+  "lang": "es",
+  "scope": "/",
+  "prefer_related_applications": false
+}

@@ -3,6 +3,7 @@
    =================================== */
 
 import { STORAGE_KEYS, SAMPLE_STUDENTS } from '../config/constants.js';
+import logger from './logger.js';
 
 /**
  * Clase para manejar el almacenamiento local
@@ -20,7 +21,7 @@ export class StorageManager {
             const data = localStorage.getItem(key);
             return data ? JSON.parse(data) : defaultValue;
         } catch (error) {
-            console.error(`Error getting data from localStorage (${key}):`, error);
+            logger.error(`Error getting data from localStorage (${key}):`, error);
             return defaultValue;
         }
     }
@@ -36,7 +37,7 @@ export class StorageManager {
             localStorage.setItem(key, JSON.stringify(data));
             return true;
         } catch (error) {
-            console.error(`Error saving data to localStorage (${key}):`, error);
+            logger.error(`Error saving data to localStorage (${key}):`, error);
             return false;
         }
     }
@@ -51,7 +52,7 @@ export class StorageManager {
             localStorage.removeItem(key);
             return true;
         } catch (error) {
-            console.error(`Error removing data from localStorage (${key}):`, error);
+            logger.error(`Error removing data from localStorage (${key}):`, error);
             return false;
         }
     }

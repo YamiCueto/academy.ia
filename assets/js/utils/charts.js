@@ -1,6 +1,8 @@
 /* ===================================
-   CHARTS.JS - Highcharts Integration
+   CHARTS.JS - Configuración de Highcharts
    =================================== */
+
+import logger from './logger.js';
 
 /**
  * Clase para manejar gráficos con Highcharts
@@ -47,9 +49,9 @@ export class ChartManager {
                 }
             });
             
-            console.log('✅ Highcharts initialized with custom defaults');
+            logger.log('✅ Highcharts initialized with custom defaults');
         } else {
-            console.warn('⚠️ Highcharts not loaded');
+            logger.warn('⚠️ Highcharts not loaded');
         }
     }
 
@@ -355,10 +357,10 @@ export const chartManager = new ChartManager();
 export function initializeChartDefaults() {
     if (ChartManager.isAvailable()) {
         const manager = new ChartManager();
-        console.log('✅ Highcharts defaults initialized');
+        logger.log('✅ Highcharts defaults initialized');
         return manager;
     } else {
-        console.error('❌ Highcharts not available');
+        logger.error('❌ Highcharts not available');
         return null;
     }
 }

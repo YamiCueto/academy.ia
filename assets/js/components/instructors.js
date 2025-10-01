@@ -4,6 +4,7 @@
  */
 
 import { StorageManager } from '../utils/storage.js';
+import logger from '../utils/logger.js';
 import { MESSAGES } from '../config/constants.js';
 
 export class InstructorsController {
@@ -33,17 +34,17 @@ export class InstructorsController {
         this.instructors = StorageManager.getInstructors();
         this.filteredInstructors = [...this.instructors];
         
-        console.log('📋 Instructores cargados:', this.instructors.length);
+        logger.log('📋 Instructores cargados:', this.instructors.length);
         
         // Si no hay instructores, crear uno de ejemplo con especialidades
         if (this.instructors.length === 0) {
-            console.log('⚠️ No hay instructores, creando ejemplo...');
+            logger.log('⚠️ No hay instructores, creando ejemplo...');
             this.createSampleInstructor();
         } else {
             // Verificar que el instructor tenga especialidades
             this.instructors.forEach((instructor, index) => {
-                console.log(`👨‍🏫 Instructor ${index + 1}: ${instructor.firstName} ${instructor.lastName}`);
-                console.log(`🏷️ Especialidades:`, instructor.specialties);
+                logger.log(`👨‍🏫 Instructor ${index + 1}: ${instructor.firstName} ${instructor.lastName}`);
+                logger.log(`🏷️ Especialidades:`, instructor.specialties);
             });
         }
     }
@@ -162,7 +163,7 @@ export class InstructorsController {
         StorageManager.saveInstructors(this.instructors);
         this.filteredInstructors = [...this.instructors];
         
-        console.log('✅ Instructor de ejemplo creado con especialidades:', sampleInstructor.specialties);
+        logger.log('✅ Instructor de ejemplo creado con especialidades:', sampleInstructor.specialties);
     }
 
     /**
@@ -828,13 +829,13 @@ export class InstructorsController {
 
                 // Renderizar especialidades
                 const specialties = instructor.specialties || [];
-                console.log(`👨‍🏫 ${instructor.firstName} tiene ${specialties.length} especialidades:`, specialties);
+                logger.log(`👨‍🏫 ${instructor.firstName} tiene ${specialties.length} especialidades:`, specialties);
                 
                 const specialtiesHTML = specialties.length > 0 
                     ? specialties.map(spec => {
                         const language = spec.language || 'Idioma';
                         const level = spec.proficiencyLevel || 'A1';
-                        console.log(`🏷️ Generando badge: ${language} (${level})`);
+                        logger.log(`🏷️ Generando badge: ${language} (${level})`);
                         return `<span class="badge-specialty">${language} (${level})</span>`;
                     }).join('')
                     : '<span class="text-muted" style="font-style: italic; color: #a0aec0; font-size: 0.85rem;">Sin especialidades</span>';

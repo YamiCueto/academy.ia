@@ -1,0 +1,83 @@
+/* ===================================
+   ACCESSIBILITY.CSS - Mejoras de Accesibilidad
+   =================================== */
+
+/* Skip Link para navegación por teclado */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: #1a202c;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    z-index: 10000;
+    transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+    top: 6px;
+    outline: 2px solid #48bb78;
+    outline-offset: 2px;
+}
+
+/* Mejoras de contraste para elementos interactivos */
+.btn:focus,
+.menu-item:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 2px solid #48bb78;
+    outline-offset: 2px;
+}
+
+/* Mejor indicación visual para elementos deshabilitados */
+.btn:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Los íconos decorativos ya tienen aria-hidden="true" implementado en HTML */
+
+/* Mejoras para modo de alto contraste */
+@media (prefers-contrast: high) {
+    .card {
+        border: 2px solid #000;
+    }
+    
+    .btn {
+        border: 2px solid currentColor;
+    }
+    
+    .stat-card {
+        border: 2px solid #666;
+    }
+}
+
+/* Respeto por preferencias de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Mejoras para modo oscuro del sistema */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #1a202c;
+        --text-color: #f7fafc;
+        --card-bg: #2d3748;
+        --border-color: #4a5568;
+    }
+}

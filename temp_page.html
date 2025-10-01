@@ -6,68 +6,12 @@
     <meta name="description" content="Sistema de control de asistencias para academias de idiomas">
     <meta name="keywords" content="asistencia, estudiantes, academia, idiomas, educación">
     <meta name="author" content="YamiCueto">
-    
-    <!-- Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="
-        default-src 'self' data:;
-        script-src 'self' 'unsafe-inline' 'unsafe-eval' 
-            https://code.highcharts.com 
-            https://cdn.jsdelivr.net 
-            https://cdnjs.cloudflare.com
-            chrome-extension:;
-        style-src 'self' 'unsafe-inline' 
-            https://fonts.googleapis.com 
-            https://cdnjs.cloudflare.com;
-        font-src 'self' 
-            https://fonts.gstatic.com 
-            https://cdnjs.cloudflare.com;
-        img-src 'self' data: blob:;
-        connect-src 'self' 
-            https://fonts.googleapis.com 
-            https://fonts.gstatic.com
-            ws: wss:;
-        object-src 'none';
-        base-uri 'self';
-        form-action 'self';
-        frame-ancestors 'none';
-    ">
-    
-    <!-- Additional Security Headers -->
-    <meta http-equiv="X-Frame-Options" content="DENY">
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
-    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Academia de Idiomas - Control de Asistencias">
-    <meta property="og:description" content="Sistema moderno para el control de asistencias en academias de idiomas">
-    <meta property="og:url" content="https://academy.ia">
-    
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Academia de Idiomas - Control de Asistencias">
-    <meta name="twitter:description" content="Sistema moderno para el control de asistencias en academias de idiomas">
-    
-    <!-- Theme color para PWA -->
-    <meta name="theme-color" content="#48bb78">
-    <meta name="msapplication-TileColor" content="#48bb78">
-    
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="assets/images/icon-192.png">
     <title>Academia de Idiomas - Control de Asistencias</title>
     
     <!-- Preconnect para mejorar performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://code.highcharts.com">
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    
-    <!-- Preload recursos críticos -->
-    <link rel="preload" href="assets/css/main.css" as="style">
-    <link rel="preload" href="assets/js/app.js" as="script">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -76,11 +20,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
     <!-- Highcharts para gráficos -->
-    <script src="https://code.highcharts.com/highcharts.js" defer></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js" defer></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     
     <!-- SweetAlert2 para notificaciones -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <!-- CSS Modular -->
     <link rel="stylesheet" href="assets/css/main.css">
@@ -90,15 +34,10 @@
     <link rel="stylesheet" href="assets/css/components/students.css">
     <link rel="stylesheet" href="assets/css/components/attendance.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
-    <link rel="stylesheet" href="assets/css/accessibility.css">
-    <link rel="stylesheet" href="assets/css/cookie-notice.css">
     <link rel="stylesheet" href="assets/css/sweetalert2-custom.css">
     <link rel="stylesheet" href="assets/css/sweetalert.css">
 </head>
 <body>
-    <!-- Skip Link para accesibilidad -->
-    <a href="#main-content" class="skip-link">Ir al contenido principal</a>
-    
     <!-- Mobile Menu Toggle -->
     <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">
         <i class="fas fa-bars"></i>
@@ -177,7 +116,7 @@
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
     <!-- Main Content -->
-        <main class="main-content" id="main-content" role="main">
+        <main class="main-content" role="main">
             <header class="top-header">
                 <h1 id="page-title">Dashboard</h1>
                 <div class="header-actions">
@@ -811,27 +750,5 @@
 
     <!-- JavaScript Modules -->
     <script type="module" src="assets/js/app.js"></script>
-    
-    <!-- Service Worker Registration -->
-    <script>
-        // Registrar Service Worker para PWA y cache
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(registration => {
-                        // Service Worker registrado exitosamente
-                        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-                            console.log('SW registered: ', registration);
-                        }
-                    })
-                    .catch(registrationError => {
-                        // Solo mostrar errores en desarrollo
-                        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-                            console.log('SW registration failed: ', registrationError);
-                        }
-                    });
-            });
-        }
-    </script>
 </body>
 </html>
