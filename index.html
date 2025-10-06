@@ -1,41 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Sistema de control de asistencias para academias de idiomas">
     <meta name="keywords" content="asistencia, estudiantes, academia, idiomas, educación">
     <meta name="author" content="YamiCueto">
     
-    <!-- Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="
-        default-src 'self' data:;
-        script-src 'self' 'unsafe-inline' 'unsafe-eval' 
-            https://code.highcharts.com 
-            https://cdn.jsdelivr.net 
-            https://cdnjs.cloudflare.com
-            chrome-extension:;
-        style-src 'self' 'unsafe-inline' 
-            https://fonts.googleapis.com 
-            https://cdnjs.cloudflare.com;
-        font-src 'self' 
-            https://fonts.gstatic.com 
-            https://cdnjs.cloudflare.com;
-        img-src 'self' data: blob:;
-        connect-src 'self' 
-            https://fonts.googleapis.com 
-            https://fonts.gstatic.com
-            ws: wss:;
-        object-src 'none';
-        base-uri 'self';
-        form-action 'self';
-        frame-ancestors 'none';
-    ">
-    
-    <!-- Additional Security Headers -->
-    <meta http-equiv="X-Frame-Options" content="DENY">
+    <!-- Security meta tags (Note: CSP and X-Frame-Options are better as HTTP headers) -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
     
     <!-- Open Graph / Facebook -->
@@ -55,7 +28,9 @@
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="assets/images/icon-192.png">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iMjAiIGZpbGw9IiM0OGJiNzgiLz4KPHRleHQgeD0iOTAiIHk9IjEwNSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjY0IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPklBPC90ZXh0Pgo8L3N2Zz4K">
+    <link rel="icon" type="image/svg+xml" sizes="32x32" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iIzQ4YmI3OCIvPgo8dGV4dCB4PSIxNiIgeT0iMjIiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5JQTwvdGV4dD4KPC9zdmc+Cg==">
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiByeD0iMiIgZmlsbD0iIzQ4YmI3OCIvPgo8dGV4dCB4PSI4IiB5PSIxMSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjgiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SUE8L3RleHQ+Cjwvc3ZnPgo=">
     <title>Academia de Idiomas - Control de Asistencias</title>
     
     <!-- Preconnect para mejorar performance -->
@@ -66,8 +41,8 @@
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     
     <!-- Preload recursos críticos -->
-    <link rel="preload" href="assets/css/main.css" as="style">
-    <link rel="preload" href="assets/js/app.js" as="script">
+    <link rel="preload" href="assets/css/main.css" as="style" crossorigin="anonymous">
+    <link rel="preload" href="assets/js/app.js" as="script" crossorigin="anonymous">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -94,6 +69,7 @@
     <link rel="stylesheet" href="assets/css/cookie-notice.css">
     <link rel="stylesheet" href="assets/css/sweetalert2-custom.css">
     <link rel="stylesheet" href="assets/css/sweetalert.css">
+    <link rel="stylesheet" href="assets/css/smart-chat.css">
 </head>
 <body>
     <!-- Skip Link para accesibilidad -->
@@ -811,6 +787,7 @@
 
     <!-- JavaScript Modules -->
     <script type="module" src="assets/js/app.js"></script>
+    <script type="module" src="assets/js/components/smart-chat.js"></script>
     
     <!-- Service Worker Registration -->
     <script>
